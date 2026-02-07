@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: scrollsoul-music-sync
+  namespace: scrollsoul
+  labels:
+    app: scrollsoul-music-sync
+spec:
+  type: LoadBalancer
+  selector:
+    app: scrollsoul-music-sync
+  ports:
+  - name: http
+    port: 80
+    targetPort: 3000
+    protocol: TCP
+  sessionAffinity: ClientIP

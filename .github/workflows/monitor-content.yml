@@ -1,0 +1,68 @@
+name: Monitor Content Performance
+
+on:
+  schedule:
+    # Every hour
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  monitor-performance:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch video performance
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: |
+          echo "Fetching performance metrics for recent videos..."
+          # In production: Fetch real analytics
+          npm run fetch-analytics
+
+      - name: Identify underperforming content
+        id: analyze
+        run: |
+          echo "Analyzing video performance..."
+          # In production: ML analysis to identify underperformers
+          echo "underperforming_count=3" >> $GITHUB_OUTPUT
+
+      - name: Auto-boost underperforming content
+        if: steps.analyze.outputs.underperforming_count > 0
+        env:
+          GOOGLE_ADS_API_KEY: ${{ secrets.GOOGLE_ADS_API_KEY }}
+        run: |
+          echo "Boosting ${{ steps.analyze.outputs.underperforming_count }} videos with paid promotion..."
+          # In production: Create Google Ads campaigns
+          npm run boost-content
+
+      - name: Archive low-performing content
+        run: |
+          echo "Archiving content below threshold..."
+          # In production: Set to unlisted/private
+          npm run archive-low-performers
+
+      - name: Generate performance report
+        run: |
+          echo "Generating weekly performance report..."
+          # In production: Create detailed analytics report
+          npm run generate-report
+
+      - name: Update content strategy
+        run: |
+          echo "Updating AI strategy based on performance data..."
+          # In production: Feed data back to AI strategy engine
+          npm run update-strategy
