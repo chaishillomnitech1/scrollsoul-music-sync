@@ -252,7 +252,332 @@ Update a specific phase status.
 
 ---
 
-### Analytics
+## 🎯 Enhanced License Model Features
+
+### Publisher Information Tracking
+
+The license model now supports comprehensive publisher information including contact details and tax information.
+
+**Example License with Publisher Info:**
+```json
+{
+  "id": "license-uuid",
+  "trackId": "track-123",
+  "licenseType": "SYNC",
+  "licensee": "Universal Pictures",
+  "territory": ["USA", "Canada"],
+  "fee": 50000,
+  "currency": "USD",
+  "status": "ACTIVE",
+  "publisher": {
+    "name": "ScrollSoul Empire Publishing",
+    "contactEmail": "publisher@scrollsoul.com",
+    "contactPhone": "+1-555-0100",
+    "address": "123 Music Lane, Los Angeles, CA 90028",
+    "taxId": "TAX-123456789"
+  }
+}
+```
+
+### PRO (Performance Rights Organization) Identifiers
+
+Track BMI, ASCAP, SESAC, and other PRO identifiers for comprehensive royalty tracking.
+
+**Example License with PRO Identifiers:**
+```json
+{
+  "id": "license-uuid",
+  "trackId": "track-123",
+  "licenseType": "PERFORMANCE",
+  "licensee": "Radio Network Corp",
+  "fee": 25000,
+  "currency": "USD",
+  "proIdentifiers": {
+    "bmi": "BMI-123456789",
+    "ascap": "ASCAP-987654321",
+    "sesac": "SESAC-456789123",
+    "other": {
+      "prs": "PRS-UK-123456",
+      "socan": "SOCAN-CA-789012"
+    }
+  }
+}
+```
+
+### Crypto Payment Support
+
+Licenses now support cryptocurrency payments with wallet addresses and blockchain verification.
+
+**Example License with Crypto Payment:**
+```json
+{
+  "id": "license-uuid",
+  "trackId": "track-123",
+  "licenseType": "SYNC",
+  "licensee": "Digital Media Corp",
+  "territory": ["Worldwide"],
+  "fee": 50000,
+  "currency": "USD",
+  "cryptoWallet": {
+    "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+    "network": "Ethereum",
+    "currency": "ETH",
+    "verified": true
+  },
+  "cryptoFee": 16.67,
+  "cryptoCurrency": "ETH",
+  "status": "ACTIVE"
+}
+```
+
+### Combined Example: Full Enhanced License
+
+**Complete license with all enhanced features:**
+```json
+{
+  "id": "license-uuid-full",
+  "trackId": "track-123",
+  "licenseType": "SYNC",
+  "licensee": "Universal Pictures",
+  "territory": ["USA", "Canada", "UK"],
+  "startDate": "2026-01-01T00:00:00Z",
+  "endDate": "2027-01-01T00:00:00Z",
+  "fee": 100000,
+  "currency": "USD",
+  "terms": "Worldwide theatrical and streaming rights",
+  "status": "ACTIVE",
+  "publisher": {
+    "name": "ScrollSoul Empire Publishing",
+    "contactEmail": "publisher@scrollsoul.com",
+    "contactPhone": "+1-555-0100",
+    "address": "123 Music Lane, Los Angeles, CA 90028",
+    "taxId": "TAX-123456789"
+  },
+  "proIdentifiers": {
+    "bmi": "BMI-123456789",
+    "ascap": "ASCAP-987654321",
+    "sesac": "SESAC-456789123"
+  },
+  "cryptoWallet": {
+    "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+    "network": "Ethereum",
+    "currency": "ETH",
+    "verified": true
+  },
+  "cryptoFee": 33.33,
+  "cryptoCurrency": "ETH",
+  "createdAt": "2026-01-01T00:00:00Z",
+  "updatedAt": "2026-01-01T00:00:00Z"
+}
+```
+
+---
+
+## 💰 Royalty Distribution API
+
+### POST /api/royalties/distribute
+
+Distribute royalties across both fiat and cryptocurrency payment streams with automated calculations.
+
+**Features:**
+- 🏦 Fiat payment distribution (bank transfers)
+- 💎 Cryptocurrency payment distribution (ETH, USDC, etc.)
+- 🔐 Rose Gold Quantum Encryption for crypto transactions
+- 📊 Automatic percentage-based calculations
+- 🎯 Support for multiple recipients with different payment preferences
+
+**Request Body:**
+```json
+{
+  "trackId": 1,
+  "trackTitle": "ScrollSoul Awakening",
+  "totalAmount": 100000,
+  "currency": "USD",
+  "cryptoAmount": 35.5,
+  "cryptoCurrency": "ETH",
+  "period": "2026-Q1",
+  "source": "Film Synchronization",
+  "recipients": [
+    {
+      "id": 1,
+      "name": "Primary Artist",
+      "type": "ARTIST",
+      "percentage": 50,
+      "paymentType": "both",
+      "walletAddress": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+      "network": "Ethereum"
+    },
+    {
+      "id": 2,
+      "name": "Featured Artist",
+      "type": "ARTIST",
+      "percentage": 25,
+      "paymentType": "crypto",
+      "walletAddress": "0x8ba1f109551bD432803012645Ac136ddd64DBA72",
+      "network": "Polygon"
+    },
+    {
+      "id": 3,
+      "name": "ScrollSoul Publishing",
+      "type": "PUBLISHER",
+      "percentage": 25,
+      "paymentType": "fiat"
+    }
+  ]
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "💰 Royalty distribution initiated successfully",
+  "data": {
+    "id": 1707330876959,
+    "trackId": 1,
+    "trackTitle": "ScrollSoul Awakening",
+    "period": "2026-Q1",
+    "source": "Film Synchronization",
+    "totalAmount": 100000,
+    "currency": "USD",
+    "cryptoAmount": 35.5,
+    "cryptoCurrency": "ETH",
+    "fiatDistributions": [
+      {
+        "recipientId": 1,
+        "recipientName": "Primary Artist",
+        "recipientType": "ARTIST",
+        "amount": 50000,
+        "currency": "USD",
+        "percentage": 50,
+        "status": "pending",
+        "paymentMethod": "bank_transfer"
+      },
+      {
+        "recipientId": 3,
+        "recipientName": "ScrollSoul Publishing",
+        "recipientType": "PUBLISHER",
+        "amount": 25000,
+        "currency": "USD",
+        "percentage": 25,
+        "status": "pending",
+        "paymentMethod": "bank_transfer"
+      }
+    ],
+    "cryptoDistributions": [
+      {
+        "recipientId": 1,
+        "recipientName": "Primary Artist",
+        "recipientType": "ARTIST",
+        "amount": 17.75,
+        "currency": "ETH",
+        "percentage": 50,
+        "walletAddress": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+        "network": "Ethereum",
+        "status": "pending",
+        "transactionHash": null,
+        "roseGoldEncryption": true
+      },
+      {
+        "recipientId": 2,
+        "recipientName": "Featured Artist",
+        "recipientType": "ARTIST",
+        "amount": 8.875,
+        "currency": "ETH",
+        "percentage": 25,
+        "walletAddress": "0x8ba1f109551bD432803012645Ac136ddd64DBA72",
+        "network": "Polygon",
+        "status": "pending",
+        "transactionHash": null,
+        "roseGoldEncryption": true
+      }
+    ],
+    "status": "processing",
+    "createdAt": "2026-02-07T18:54:36.959Z",
+    "summary": {
+      "totalRecipients": 3,
+      "fiatRecipients": 2,
+      "cryptoRecipients": 2,
+      "totalFiatDistributed": 75000,
+      "totalCryptoDistributed": 26.625,
+      "roseGoldEncrypted": true
+    }
+  },
+  "encryption": "Rose Gold Quantum Encryption Active ✨"
+}
+```
+
+---
+
+## 📊 Enhanced Analytics Dashboard
+
+### GET /api/analytics/dashboard
+
+Get comprehensive publishing analytics including streaming royalties, placements, and crypto payouts.
+
+**New Publishing Analytics Section:**
+```json
+{
+  "success": true,
+  "data": {
+    "publishing": {
+      "totalPublishers": 2,
+      "activePublishers": 2,
+      "totalCatalogTracks": 1500002,
+      "totalCatalogRevenue": 5000137000,
+      "streamingRoyalties": {
+        "total": 720,
+        "platforms": {
+          "spotify": 450,
+          "appleMusic": 180,
+          "youtubeMusic": 90
+        },
+        "growth": "+15.2%",
+        "lastUpdated": "2026-02-07T18:54:36.959Z"
+      },
+      "placements": {
+        "film": 1,
+        "tv": 0,
+        "advertising": 1,
+        "sports": 1,
+        "totalValue": 125000,
+        "avgValue": 41666.67
+      },
+      "cryptoPayouts": {
+        "totalValue": 0.0318,
+        "currency": "ETH",
+        "totalTransactions": 1,
+        "networks": ["Ethereum", "Polygon"],
+        "roseGoldEncrypted": true,
+        "recentPayouts": [
+          {
+            "amount": 0.0318,
+            "currency": "ETH",
+            "recipient": "Artist Wallet",
+            "timestamp": "2026-02-07T18:00:00Z",
+            "status": "confirmed"
+          }
+        ]
+      },
+      "proIdentifiers": {
+        "bmi": 2,
+        "ascap": 1,
+        "sesac": 0
+      },
+      "blockchain": {
+        "totalWallets": 2,
+        "totalBalance": 51000000,
+        "networks": ["Ethereum", "Polygon", "BSC"],
+        "verified": true
+      }
+    }
+  }
+}
+```
+
+---
+
+## ✨ API Usage Examples
 
 #### GET /api/publishing/analytics
 Get comprehensive publishing analytics.

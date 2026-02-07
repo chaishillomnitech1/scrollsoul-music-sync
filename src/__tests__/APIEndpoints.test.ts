@@ -3,6 +3,8 @@
  * Tests for /api/publishing and /api/royalties/distribute
  */
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 describe('Publishing API Endpoints', () => {
   describe('GET /api/publishing', () => {
     it('should sync and return all publishers', () => {
@@ -55,6 +57,7 @@ describe('Publishing API Endpoints', () => {
         data: activePublishers,
       };
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       expect(response.data.every((p: any) => p.status === 'active')).toBe(true);
     });
 
@@ -73,6 +76,7 @@ describe('Publishing API Endpoints', () => {
         data: primaryPublishers,
       };
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       expect(response.data.every((p: any) => p.type === 'primary')).toBe(true);
     });
   });
@@ -81,7 +85,8 @@ describe('Publishing API Endpoints', () => {
 describe('Royalties Distribution API Endpoints', () => {
   describe('POST /api/royalties/distribute', () => {
     it('should distribute royalties across fiat streams', () => {
-      const distributionRequest = {
+      // Example request data structure
+      const _distributionRequest = {
         trackId: 1,
         trackTitle: 'Test Track',
         totalAmount: 10000,
@@ -145,7 +150,8 @@ describe('Royalties Distribution API Endpoints', () => {
     });
 
     it('should distribute royalties across crypto streams', () => {
-      const distributionRequest = {
+      // Example request data structure
+      const _distributionRequest = {
         trackId: 1,
         trackTitle: 'Test Track',
         totalAmount: 10000,
@@ -196,7 +202,8 @@ describe('Royalties Distribution API Endpoints', () => {
     });
 
     it('should distribute royalties across both fiat and crypto streams', () => {
-      const distributionRequest = {
+      // Example request data structure
+      const _distributionRequest = {
         trackId: 1,
         trackTitle: 'Test Track',
         totalAmount: 10000,
@@ -253,7 +260,8 @@ describe('Royalties Distribution API Endpoints', () => {
     });
 
     it('should return error when required fields are missing', () => {
-      const invalidRequest = {
+      // Example invalid request
+      const _invalidRequest = {
         trackId: 1,
         // Missing totalAmount and recipients
       };

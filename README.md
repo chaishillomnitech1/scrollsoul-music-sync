@@ -327,6 +327,151 @@ curl http://localhost:3000/api/music
 | `POST` | `/api/integration/sync-frequency` | Sync frequency data 📡 |
 | `POST` | `/api/integration/wealth-distribution` | Trigger QFS payment 💰 |
 
+### 🏛️ Publishing Endpoints (ENHANCED!)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/publishing` | Sync publishing partners ⭐ **NEW** |
+| `GET` | `/api/publishing/companies` | Get all publishing companies |
+| `GET` | `/api/publishing/companies/:id` | Get company by ID |
+| `POST` | `/api/publishing/companies` | Create publishing company |
+| `GET` | `/api/publishing/transactions` | Get digital currency transactions |
+| `POST` | `/api/publishing/transactions` | Create new transaction |
+| `GET` | `/api/publishing/analytics` | Publishing analytics dashboard |
+| `GET` | `/api/publishing/wallet/:publisherId` | Get wallet information |
+
+**Query Filters:** `?status=active&type=partner`
+
+<details>
+<summary><b>🏛️ Example: Sync Publishing Partners</b></summary>
+
+```bash
+curl http://localhost:3000/api/publishing
+```
+
+```json
+{
+  "success": true,
+  "message": "🏛️ Publishing Partners Synchronized",
+  "count": 2,
+  "data": [
+    {
+      "id": 1,
+      "name": "ScrollSoul Empire Publishing",
+      "type": "primary",
+      "status": "active",
+      "digitalWallet": {
+        "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+        "currency": "ETH",
+        "balance": 1000000,
+        "roseGoldEncryption": true
+      },
+      "blockchain": {
+        "network": "Ethereum",
+        "verified": true
+      }
+    }
+  ],
+  "sync": {
+    "timestamp": "2026-02-07T18:54:36.959Z",
+    "totalPartners": 2,
+    "activePartners": 2,
+    "roseGoldEncrypted": true
+  }
+}
+```
+</details>
+
+### 💰 Enhanced Royalty Distribution (NEW!)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/royalties/distribute` | Distribute royalties (fiat + crypto) ⭐ **NEW** |
+| `GET` | `/api/royalties` | Get all royalties |
+| `GET` | `/api/royalties/:id` | Get royalty by ID |
+| `GET` | `/api/royalties/summary/totals` | Get summary ⭐ |
+| `POST` | `/api/royalties` | Create royalty record |
+| `PUT` | `/api/royalties/:id` | Update royalty |
+
+**Query Filters:** `?period=2026-Q1&status=paid`
+
+<details>
+<summary><b>💰 Example: Distribute Royalties</b></summary>
+
+```bash
+curl -X POST http://localhost:3000/api/royalties/distribute \
+  -H "Content-Type: application/json" \
+  -d '{
+    "trackId": 1,
+    "trackTitle": "ScrollSoul Awakening",
+    "totalAmount": 10000,
+    "currency": "USD",
+    "cryptoAmount": 3.5,
+    "cryptoCurrency": "ETH",
+    "recipients": [
+      {
+        "id": 1,
+        "name": "Artist",
+        "type": "ARTIST",
+        "percentage": 75,
+        "paymentType": "both",
+        "walletAddress": "0x123..."
+      },
+      {
+        "id": 2,
+        "name": "Publisher",
+        "type": "PUBLISHER",
+        "percentage": 25,
+        "paymentType": "fiat"
+      }
+    ]
+  }'
+```
+
+```json
+{
+  "success": true,
+  "message": "💰 Royalty distribution initiated successfully",
+  "data": {
+    "id": 1707330876959,
+    "trackId": 1,
+    "totalAmount": 10000,
+    "cryptoAmount": 3.5,
+    "fiatDistributions": [
+      {
+        "recipientName": "Artist",
+        "amount": 7500,
+        "currency": "USD",
+        "percentage": 75
+      },
+      {
+        "recipientName": "Publisher",
+        "amount": 2500,
+        "currency": "USD",
+        "percentage": 25
+      }
+    ],
+    "cryptoDistributions": [
+      {
+        "recipientName": "Artist",
+        "amount": 2.625,
+        "currency": "ETH",
+        "walletAddress": "0x123...",
+        "roseGoldEncryption": true
+      }
+    ],
+    "summary": {
+      "totalRecipients": 2,
+      "fiatRecipients": 2,
+      "cryptoRecipients": 1,
+      "roseGoldEncrypted": true
+    }
+  },
+  "encryption": "Rose Gold Quantum Encryption Active ✨"
+}
+```
+</details>
+
 <details>
 <summary><b>🔗 Example: Empire Integration Status</b></summary>
 
