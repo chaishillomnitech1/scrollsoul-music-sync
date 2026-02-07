@@ -157,7 +157,19 @@ export class ComplianceService {
     // 1. Mark user as deleted
     this.deletedUsers.add(userId);
 
-    // 2. Anonymize audit logs (keep for compliance, but remove PII)
+    // 2. Log the deletion event BEFORE anonymization
+    await this.logAuditEvent({
+      type: 'USER_DATA_DELETED',
+      userId: `SYSTEM`,
+      action: 'DELETE',
+      result: 'SUCCESS',
+      metadata: { 
+        reason: reason || 'GDPR_REQUEST',
+        deletedUserId: userId.substring(0, 8), // Only partial ID for audit
+      },
+    });
+
+    // 3. Anonymize audit logs (keep for compliance, but remove PII)
     for (const log of this.auditLog) {
       if (log.actor === userId) {
         log.actor = `DELETED_USER_${userId.substring(0, 8)}`;
@@ -168,15 +180,6 @@ export class ComplianceService {
         }
       }
     }
-
-    // 3. Log the deletion event
-    await this.logAuditEvent({
-      type: 'USER_DATA_DELETED',
-      userId,
-      action: 'DELETE',
-      result: 'SUCCESS',
-      metadata: { reason: reason || 'GDPR_REQUEST' },
-    });
 
     // In production:
     // - Delete PII from database

@@ -57,16 +57,16 @@ export class NetworkSecurityService {
   private initializeWAFRules() {
     this.wafRules = [
       {
-        id: 'sql-injection',
-        pattern: /\b(union|select|insert|update|delete|drop|alter|create|exec|script)\b/i,
-        action: 'block',
-        description: 'SQL Injection Prevention',
-      },
-      {
         id: 'xss',
         pattern: /<script|javascript:|onerror=|onload=/i,
         action: 'block',
         description: 'Cross-Site Scripting (XSS) Prevention',
+      },
+      {
+        id: 'sql-injection',
+        pattern: /\b(union|select|insert|update|delete|drop|alter|create|exec)\b/i,
+        action: 'block',
+        description: 'SQL Injection Prevention',
       },
       {
         id: 'path-traversal',

@@ -304,7 +304,13 @@ describe('Rose Gold Security Suite', () => {
       await suite.compliance.deleteUserData(userId, 'GDPR_REQUEST');
       
       const logs = await suite.compliance.getAuditLogs(undefined, { userId });
-      expect(logs.length).toBe(0); // User-specific logs should be anonymized
+      // User-specific logs should be anonymized (filtered by new userId returns nothing)
+      expect(logs.length).toBe(0);
+      
+      // But the deletion event should be logged
+      const allLogs = await suite.compliance.getAuditLogs();
+      const deletionLog = allLogs.find(l => l.eventType === 'USER_DATA_DELETED');
+      expect(deletionLog).toBeDefined();
     });
 
     test('should generate SOC 2 compliance report', async () => {

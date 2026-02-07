@@ -46,7 +46,7 @@ export class RoseGoldEncryptionService {
     const salt = Buffer.from(context, 'utf8');
     const info = Buffer.from('scrollsoul-rose-gold', 'utf8');
     
-    const key = crypto.hkdfSync(
+    const keyBuffer = crypto.hkdfSync(
       'sha256',
       this.masterKey,
       salt,
@@ -54,6 +54,7 @@ export class RoseGoldEncryptionService {
       32 // 256-bit output key
     );
 
+    const key = Buffer.from(keyBuffer);
     this.contextKeys.set(context, key);
     return key;
   }

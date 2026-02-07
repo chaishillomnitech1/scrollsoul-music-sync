@@ -213,6 +213,10 @@ export class AuthorizationService {
         return contextValue === condition.value;
       
       case 'in':
+        // Check if contextValue is in the array OR if the array contextValue contains value
+        if (Array.isArray(contextValue)) {
+          return contextValue.some(v => condition.value.includes(v));
+        }
         return Array.isArray(condition.value) && condition.value.includes(contextValue);
       
       case 'contains':

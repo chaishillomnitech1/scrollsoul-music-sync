@@ -132,9 +132,17 @@ describe('RoseGoldEncryptionService', () => {
       const buf1 = Buffer.from('same', 'utf8');
       const buf2 = Buffer.from('same', 'utf8');
       const buf3 = Buffer.from('diff', 'utf8');
+      const buf4 = Buffer.from('different', 'utf8'); // Different length
 
       expect(encryption.secureCompare(buf1, buf2)).toBe(true);
-      expect(() => encryption.secureCompare(buf1, buf3)).toThrow();
+      
+      // timingSafeEqual throws for different length buffers
+      expect(() => {
+        encryption.secureCompare(buf1, buf4);
+      }).toThrow();
+      
+      // timingSafeEqual returns false for same length but different content
+      expect(encryption.secureCompare(buf1, buf3)).toBe(false);
     });
   });
 });
