@@ -450,7 +450,7 @@ Happy weekend! 🎵
 #MusicLicensing #MusicIndustry #SyncLicensing
 
 ### Tech
-#API #SaaS #B2B #EnterpriseS oftware
+#API #SaaS #B2B #EnterpriseSoftware
 
 ### Crypto
 #Blockchain #Crypto #Web3 #DeFi

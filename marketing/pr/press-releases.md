@@ -331,7 +331,7 @@ During SXSW, ScrollSoul:
 - Announced partnerships with Spotify and Coinbase
 - Generated 150+ qualified sales leads
 
-"SXSW has been incredible for us," said Alex Morrison, CEO of ScrollSoul. "The energy, the connections, the validation from winning this award—it's a  milestone moment for our team."
+"SXSW has been incredible for us," said Alex Morrison, CEO of ScrollSoul. "The energy, the connections, the validation from winning this award—it's a milestone moment for our team."
 
 **Industry Recognition:**
 
