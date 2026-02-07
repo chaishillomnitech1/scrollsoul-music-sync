@@ -26,7 +26,7 @@ export interface PipelineConfig {
 export interface GenerationJob {
   id: string;
   storySetId: string;
-  provider: 'runway' | 'sora' | 'synthesia' | 'domo' | 'kling';
+  provider: 'runway' | 'sora' | 'synthesia' | 'domoai' | 'kling';
   status: 'queued' | 'processing' | 'completed' | 'failed';
   videoId?: string;
   createdAt: Date;
@@ -72,7 +72,7 @@ export class AutoContentPipeline {
    */
   async generateContent(
     storySetId: string,
-    provider: 'runway' | 'sora' | 'synthesia' | 'domo' | 'kling' = 'sora'
+    provider: 'runway' | 'sora' | 'synthesia' | 'domoai' | 'kling' = 'sora'
   ): Promise<GenerationJob> {
     const storySet = await this.nftStoryService.getStorySet(storySetId);
     if (!storySet) {
@@ -105,7 +105,7 @@ export class AutoContentPipeline {
         case 'synthesia':
           result = await this.generateWithSynthesia(storySet);
           break;
-        case 'domo':
+        case 'domoai':
           result = await this.generateWithDomo(storySet);
           break;
         case 'kling':
@@ -166,7 +166,6 @@ export class AutoContentPipeline {
       narrativeContext: storySet.narrative.voiceoverScript,
       duration: Math.min(storySet.narrative.targetDuration, 60),
       resolution: '1080p',
-      cinematicStyle: storySet.visualStyle.cinematicStyle,
     });
   }
 
@@ -238,7 +237,7 @@ export class AutoContentPipeline {
    */
   private async pollJobCompletion(
     job: GenerationJob,
-    provider: 'runway' | 'sora' | 'synthesia' | 'domo' | 'kling'
+    provider: 'runway' | 'sora' | 'synthesia' | 'domoai' | 'kling'
   ): Promise<void> {
     const maxAttempts = 60; // 10 minutes with 10-second intervals
     let attempts = 0;
@@ -259,7 +258,7 @@ export class AutoContentPipeline {
           case 'synthesia':
             status = await this.synthesiaClient?.checkStatus(job.videoId!);
             break;
-          case 'domo':
+          case 'domoai':
             status = await this.domoClient?.checkStatus(job.videoId!);
             break;
           case 'kling':
@@ -367,7 +366,7 @@ export class AutoContentPipeline {
    */
   async batchGenerate(
     storySetIds: string[],
-    provider: 'runway' | 'sora' | 'synthesia' | 'domo' | 'kling' = 'sora'
+    provider: 'runway' | 'sora' | 'synthesia' | 'domoai' | 'kling' = 'sora'
   ): Promise<GenerationJob[]> {
     const jobs: GenerationJob[] = [];
 

@@ -1,0 +1,227 @@
+name: AI Video Generation Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      story_set_id:
+        description: 'NFT Story Set ID to generate video for'
+        required: true
+        type: string
+      provider:
+        description: 'AI video provider to use'
+        required: true
+        type: choice
+        options:
+          - sora
+          - runway
+          - kling
+          - synthesia
+          - domoai
+      auto_publish:
+        description: 'Automatically publish to platforms'
+        required: false
+        type: boolean
+        default: false
+  schedule:
+    # Run daily at 9 AM UTC
+    - cron: '0 9 * * *'
+
+jobs:
+  generate-video:
+    name: Generate AI Video
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    permissions:
+      contents: read
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build TypeScript
+        run: npm run build
+        
+      - name: Generate video content
+        env:
+          # AI Video API Keys
+          RUNWAY_API_KEY: ${{ secrets.RUNWAY_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SYNTHESIA_API_KEY: ${{ secrets.SYNTHESIA_API_KEY }}
+          DOMOAI_API_KEY: ${{ secrets.DOMOAI_API_KEY }}
+          KLING_API_KEY: ${{ secrets.KLING_API_KEY }}
+          
+          # Security
+          ROSE_GOLD_MASTER_KEY: ${{ secrets.ROSE_GOLD_MASTER_KEY }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          
+          # Storage
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          
+          # Blockchain
+          ETHEREUM_RPC_URL: ${{ secrets.ETHEREUM_RPC_URL }}
+          
+          # Input parameters
+          STORY_SET_ID: ${{ github.event.inputs.story_set_id || 'auto' }}
+          PROVIDER: ${{ github.event.inputs.provider || 'sora' }}
+          AUTO_PUBLISH: ${{ github.event.inputs.auto_publish || 'false' }}
+        run: |
+          node -e "
+          const { AutoContentPipeline } = require('./dist/pipelines/AutoContentPipeline');
+          const { NFTStorySetService } = require('./dist/services/NFTStorySetService');
+          
+          async function main() {
+            const storyService = new NFTStorySetService();
+            const pipeline = new AutoContentPipeline({
+              runway: { apiKey: process.env.RUNWAY_API_KEY },
+              sora: { apiKey: process.env.OPENAI_API_KEY },
+              synthesia: { apiKey: process.env.SYNTHESIA_API_KEY },
+              domo: { apiKey: process.env.DOMOAI_API_KEY },
+              kling: { apiKey: process.env.KLING_API_KEY },
+              autoPublish: process.env.AUTO_PUBLISH === 'true',
+            });
+            
+            let storySetId = process.env.STORY_SET_ID;
+            
+            // If 'auto', get the first draft story set
+            if (storySetId === 'auto') {
+              const drafts = await storyService.getStorySetsByStatus('draft');
+              if (drafts.length === 0) {
+                console.log('No draft story sets found');
+                return;
+              }
+              storySetId = drafts[0].id;
+            }
+            
+            console.log(\`Generating video for story set: \${storySetId}\`);
+            console.log(\`Provider: \${process.env.PROVIDER}\`);
+            
+            const job = await pipeline.generateContent(
+              storySetId,
+              process.env.PROVIDER
+            );
+            
+            console.log(\`Job created: \${job.id}\`);
+            console.log(\`Status: \${job.status}\`);
+            
+            // Poll for completion
+            let status = await pipeline.getJobStatus(job.id);
+            let attempts = 0;
+            const maxAttempts = 60; // 10 minutes
+            
+            while (status.status === 'processing' && attempts < maxAttempts) {
+              await new Promise(resolve => setTimeout(resolve, 10000)); // 10 seconds
+              status = await pipeline.getJobStatus(job.id);
+              attempts++;
+              console.log(\`Status check \${attempts}: \${status.status}\`);
+            }
+            
+            if (status.status === 'completed') {
+              console.log('✅ Video generation completed successfully');
+              process.exit(0);
+            } else if (status.status === 'failed') {
+              console.error('❌ Video generation failed:', status.error);
+              process.exit(1);
+            } else {
+              console.warn('⚠️ Video generation still processing after timeout');
+              process.exit(0);
+            }
+          }
+          
+          main().catch(error => {
+            console.error('Error:', error);
+            process.exit(1);
+          });
+          "
+          
+      - name: Upload generation logs
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: generation-logs
+          path: |
+            *.log
+            logs/
+          retention-days: 7
+          
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "::error::Video generation failed. Check logs for details."
+
+  scheduled-batch-generation:
+    name: Scheduled Batch Generation
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build TypeScript
+        run: npm run build
+        
+      - name: Generate batch videos
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          KLING_API_KEY: ${{ secrets.KLING_API_KEY }}
+          ROSE_GOLD_MASTER_KEY: ${{ secrets.ROSE_GOLD_MASTER_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        run: |
+          node -e "
+          const { AutoContentPipeline } = require('./dist/pipelines/AutoContentPipeline');
+          const { NFTStorySetService } = require('./dist/services/NFTStorySetService');
+          
+          async function main() {
+            const storyService = new NFTStorySetService();
+            const pipeline = new AutoContentPipeline({
+              sora: { apiKey: process.env.OPENAI_API_KEY },
+              kling: { apiKey: process.env.KLING_API_KEY },
+              autoPublish: true,
+              platforms: ['youtube', 'tiktok'],
+            });
+            
+            const drafts = await storyService.getStorySetsByStatus('draft');
+            
+            console.log(\`Found \${drafts.length} draft story sets\`);
+            
+            if (drafts.length === 0) {
+              console.log('No content to generate');
+              return;
+            }
+            
+            // Generate up to 5 videos per day
+            const storySetIds = drafts.slice(0, 5).map(s => s.id);
+            
+            const jobs = await pipeline.batchGenerate(storySetIds, 'sora');
+            
+            console.log(\`✅ Queued \${jobs.length} video generation jobs\`);
+          }
+          
+          main().catch(error => {
+            console.error('Error:', error);
+            process.exit(1);
+          });
+          "
