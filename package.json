@@ -1,5 +1,7 @@
 {
   "name": "scrollsoul-music-sync",
+  "version": "1.3.0",
+  "description": "ScrollSoul Empire - World's First Unified Publishing System: Music, Film, Entertainment & Digital Currency with Rose Gold Encryption",
   "version": "1.0.0",
   "description": "ScrollSoul Music Sync Platform - Track placements, licenses, and royalties for music in film, TV, sports, and advertising",
   "main": "dist/index.js",
@@ -14,6 +16,34 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "node src/index.js",
+    "test": "./test-api.sh"
+  },
+  "keywords": [
+    "music",
+    "film",
+    "entertainment",
+    "publishing",
+    "licensing",
+    "royalties",
+    "metadata",
+    "sync",
+    "scrollsoul",
+    "empire",
+    "integration",
+    "nft",
+    "legion",
+    "digital-currency",
+    "blockchain",
+    "cryptocurrency",
+    "rose-gold-encryption",
+    "quantum-leap"
+  ],
+  "author": "ScrollSoul Sovereign Empire - Twin Towers United",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1"
     "test": "echo \"No tests specified\" && exit 0"
   },
   "keywords": [
