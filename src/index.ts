@@ -16,6 +16,9 @@ export { AnalyticsService } from './services/AnalyticsService';
 
 // Export integrations
 export { VydiaClient } from './integrations/VydiaClient';
+export { YouTubeClient } from './integrations/YouTubeClient';
+export { TikTokClient } from './integrations/TikTokClient';
+export { SpotifyClient } from './integrations/SpotifyClient';
 
 // Export types
 export * from './types';

@@ -20,3 +20,4 @@ export type {
   VRSessionAnalytics,
   VRSpatialAudioConfig,
 } from './VRSpaceClient';
+export { SpotifyClient } from './SpotifyClient';

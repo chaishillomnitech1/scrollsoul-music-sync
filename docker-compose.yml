@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: scrollsoul-music-sync
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - scrollsoul-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Add Redis for caching
+  redis:
+    image: redis:7-alpine
+    container_name: scrollsoul-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - scrollsoul-network
+    command: redis-server --appendonly yes
+
+  # Optional: Add PostgreSQL for data persistence
+  postgres:
+    image: postgres:15-alpine
+    container_name: scrollsoul-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=scrollsoul
+      - POSTGRES_PASSWORD=scrollsoul_password
+      - POSTGRES_DB=scrollsoul_music_sync
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - scrollsoul-network
+
+networks:
+  scrollsoul-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+  postgres-data:
