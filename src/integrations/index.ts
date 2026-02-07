@@ -1,0 +1,1 @@
+export { VydiaClient } from './VydiaClient';
