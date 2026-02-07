@@ -3,6 +3,8 @@
  * Business logic for royalty tracking and payment information
  */
 
+const { v4: uuidv4 } = require('uuid');
+
 // In-memory storage (replace with database in production)
 let royalties = [
   {
@@ -104,7 +106,7 @@ class RoyaltyService {
 
   createRoyalty(data) {
     const royalty = {
-      id: String(royalties.length + 1),
+      id: uuidv4(),
       trackName: data.trackName,
       placementId: data.placementId,
       paymentType: data.paymentType,

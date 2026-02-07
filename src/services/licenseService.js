@@ -3,6 +3,8 @@
  * Business logic for music license tracking
  */
 
+const { v4: uuidv4 } = require('uuid');
+
 // In-memory storage (replace with database in production)
 let licenses = [
   {
@@ -44,7 +46,7 @@ class LicenseService {
 
   createLicense(data) {
     const license = {
-      id: String(licenses.length + 1),
+      id: uuidv4(),
       trackName: data.trackName,
       licenseType: data.licenseType,
       licensee: data.licensee,

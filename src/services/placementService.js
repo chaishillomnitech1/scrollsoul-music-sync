@@ -3,6 +3,8 @@
  * Business logic for music placement tracking
  */
 
+const { v4: uuidv4 } = require('uuid');
+
 // In-memory storage (replace with database in production)
 let placements = [
   {
@@ -44,7 +46,7 @@ class PlacementService {
 
   createPlacement(data) {
     const placement = {
-      id: String(placements.length + 1),
+      id: uuidv4(),
       trackName: data.trackName,
       artist: data.artist || 'ScrollSoul',
       placementType: data.placementType,
