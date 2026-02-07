@@ -1,0 +1,80 @@
+name: Scheduled Content Generation
+
+on:
+  schedule:
+    # Every 6 hours
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  generate-content:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch trending NFTs
+        id: fetch-nfts
+        run: |
+          echo "Fetching trending NFT collections..."
+          # In production: Call OpenSea/Rarible API
+          echo "trending_collections=bored-ape-yacht-club,cryptopunks,azuki" >> $GITHUB_OUTPUT
+
+      - name: Generate video scripts (GPT-4)
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          echo "Generating scripts for trending NFTs..."
+          # In production: Call OpenAI API to generate scripts
+          node -e "console.log('Scripts generated for: ${{ steps.fetch-nfts.outputs.trending_collections }}')"
+
+      - name: Create videos (AI APIs)
+        env:
+          SORA_API_KEY: ${{ secrets.SORA_API_KEY }}
+          RUNWAY_API_KEY: ${{ secrets.RUNWAY_API_KEY }}
+        run: |
+          echo "Creating videos with AI..."
+          # In production: Call Sora/Runway APIs
+          npm run generate-videos
+
+      - name: Enhance and post-process
+        run: |
+          echo "Applying color grading, subtitles, thumbnails..."
+          # In production: Run enhancement pipeline
+          npm run enhance-videos
+
+      - name: Publish to all platforms
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          TIKTOK_API_KEY: ${{ secrets.TIKTOK_API_KEY }}
+          INSTAGRAM_API_KEY: ${{ secrets.INSTAGRAM_API_KEY }}
+          TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+        run: |
+          echo "Publishing to YouTube, TikTok, Instagram, Twitter..."
+          # In production: Call platform publishers
+          npm run publish-all
+
+      - name: Update analytics
+        run: |
+          echo "Recording content generation metrics..."
+          # In production: Update analytics dashboard
+          npm run update-analytics
+
+      - name: Send notification
+        if: always()
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        run: |
+          STATUS="${{ job.status }}"
+          echo "Sending notification: Content generation $STATUS"
+          # In production: Send Slack/Discord notification
