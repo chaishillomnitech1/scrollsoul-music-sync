@@ -118,7 +118,7 @@ export class YouTubeClient {
         },
       });
 
-      const videoIds = response.data.items.map((item: any) => item.id.videoId);
+      const videoIds = response.data.items.map((item: Record<string, unknown>) => (item.id as Record<string, unknown>).videoId as string);
       
       // Fetch detailed metadata for found videos
       const videos: YouTubeVideoMetadata[] = [];
@@ -192,18 +192,22 @@ export class YouTubeClient {
   /**
    * Map YouTube video data to metadata interface
    */
-  private mapYouTubeVideoToMetadata(video: any): YouTubeVideoMetadata {
+  private mapYouTubeVideoToMetadata(video: Record<string, unknown>): YouTubeVideoMetadata {
+    const snippet = video.snippet as Record<string, unknown>;
+    const contentDetails = video.contentDetails as Record<string, unknown>;
+    const statistics = video.statistics as Record<string, unknown>;
+    
     return {
-      videoId: video.id,
-      title: video.snippet.title,
-      description: video.snippet.description,
-      tags: video.snippet.tags || [],
-      category: video.snippet.categoryId,
-      duration: this.parseDuration(video.contentDetails.duration),
-      viewCount: parseInt(video.statistics.viewCount || '0'),
-      likeCount: parseInt(video.statistics.likeCount || '0'),
-      commentCount: parseInt(video.statistics.commentCount || '0'),
-      publishedAt: new Date(video.snippet.publishedAt),
+      videoId: video.id as string,
+      title: snippet.title as string,
+      description: snippet.description as string,
+      tags: (snippet.tags as string[]) || [],
+      category: snippet.categoryId as string,
+      duration: this.parseDuration(contentDetails.duration as string),
+      viewCount: parseInt((statistics.viewCount as string) || '0'),
+      likeCount: parseInt((statistics.likeCount as string) || '0'),
+      commentCount: parseInt((statistics.commentCount as string) || '0'),
+      publishedAt: new Date(snippet.publishedAt as string),
     };
   }
 

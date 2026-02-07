@@ -132,7 +132,7 @@ export class TikTokClient {
         },
       });
 
-      return response.data.sounds.map((sound: any) => ({
+      return response.data.sounds.map((sound: Record<string, unknown>) => ({
         soundId: sound.sound_id,
         title: sound.title,
         artist: sound.artist,
@@ -160,7 +160,7 @@ export class TikTokClient {
         },
       });
 
-      return response.data.videos.map((video: any) => ({
+      return response.data.videos.map((video: Record<string, unknown>) => ({
         videoId: video.video_id,
         soundId: soundId,
         authorId: video.author_id,
@@ -169,7 +169,7 @@ export class TikTokClient {
         likeCount: video.like_count || 0,
         shareCount: video.share_count || 0,
         commentCount: video.comment_count || 0,
-        createdAt: new Date(video.created_at),
+        createdAt: new Date(video.created_at as string),
       }));
     } catch (error) {
       throw new Error(`Failed to fetch videos by sound: ${error}`);
@@ -187,7 +187,7 @@ export class TikTokClient {
         },
       });
 
-      return response.data.sounds.map((sound: any, index: number) => ({
+      return response.data.sounds.map((sound: Record<string, unknown>, index: number) => ({
         soundId: sound.sound_id,
         title: sound.title,
         artist: sound.artist,
