@@ -113,7 +113,7 @@ export class VydiaClient {
   /**
    * Get track from Vydia
    */
-  async getTrackFromVydia(vydiaAssetId: string): Promise<any> {
+  async getTrackFromVydia(vydiaAssetId: string): Promise<Record<string, unknown>> {
     try {
       const response = await this.client.get(`/assets/${vydiaAssetId}`);
       return response.data;
@@ -137,7 +137,7 @@ export class VydiaClient {
   /**
    * Get analytics from Vydia
    */
-  async getVydiaAnalytics(vydiaAssetId: string): Promise<any> {
+  async getVydiaAnalytics(vydiaAssetId: string): Promise<Record<string, unknown>> {
     try {
       const response = await this.client.get(`/assets/${vydiaAssetId}/analytics`);
       return response.data;
@@ -149,15 +149,16 @@ export class VydiaClient {
   /**
    * Handle Vydia webhook
    */
-  handleWebhook(payload: any): void {
+  handleWebhook(payload: Record<string, unknown>): void {
     // Process webhook payload from Vydia
     // Update sync status based on webhook data
     if (payload.event === 'asset.updated' && payload.data) {
-      const trackId = this.findTrackIdByVydiaAssetId(payload.data.id);
+      const data = payload.data as { id: string };
+      const trackId = this.findTrackIdByVydiaAssetId(data.id);
       if (trackId) {
         const status: VydiaSyncStatus = {
           trackId,
-          vydiaAssetId: payload.data.id,
+          vydiaAssetId: data.id,
           lastSyncDate: new Date(),
           syncStatus: 'SYNCED',
         };
@@ -169,7 +170,7 @@ export class VydiaClient {
   /**
    * Map track metadata to Vydia format
    */
-  private mapTrackToVydiaFormat(track: TrackMetadata): any {
+  private mapTrackToVydiaFormat(track: TrackMetadata): Record<string, unknown> {
     return {
       title: track.title,
       artist: track.artist,

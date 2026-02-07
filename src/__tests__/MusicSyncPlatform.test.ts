@@ -45,7 +45,7 @@ describe('MusicSyncPlatform', () => {
       status: 'ACTIVE',
     });
 
-    const placement = platform.placementService.createPlacement({
+    platform.placementService.createPlacement({
       trackId: track.id,
       licenseId: license.id,
       campaign: 'Nike Campaign',
@@ -139,6 +139,7 @@ describe('MusicSyncPlatform', () => {
       currency: 'USD',
       startDate: new Date(),
       endDate: new Date(),
+      metrics: {},
     });
 
     const performance = platform.getCampaignPerformance('NCAA');
