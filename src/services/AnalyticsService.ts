@@ -1,5 +1,5 @@
 import { CampaignAnalytics } from '../models/CampaignAnalytics';
-import { CampaignAnalytics as ICampaignAnalytics } from '../types';
+import { CampaignAnalytics as ICampaignAnalytics, SortByMetric } from '../types';
 
 /**
  * AnalyticsService handles campaign analytics
@@ -114,7 +114,7 @@ export class AnalyticsService {
   /**
    * Get top performing campaigns
    */
-  getTopCampaigns(limit: number = 10, sortBy: 'revenue' | 'reach' | 'impressions' = 'revenue'): CampaignAnalytics[] {
+  getTopCampaigns(limit: number = 10, sortBy: SortByMetric = 'revenue'): CampaignAnalytics[] {
     const sorted = Array.from(this.analytics.values()).sort((a, b) => {
       switch (sortBy) {
         case 'revenue':

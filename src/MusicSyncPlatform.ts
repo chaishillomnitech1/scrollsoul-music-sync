@@ -4,6 +4,7 @@ import { PlacementService } from './services/PlacementService';
 import { RoyaltyService } from './services/RoyaltyService';
 import { AnalyticsService } from './services/AnalyticsService';
 import { VydiaClient } from './integrations/VydiaClient';
+import { BrandPerformanceReport } from './types';
 import { config } from './utils/config';
 
 /**
@@ -119,11 +120,11 @@ export class MusicSyncPlatform {
   /**
    * Get brand performance report
    */
-  getBrandPerformanceReport() {
+  getBrandPerformanceReport(): Map<string, BrandPerformanceReport> {
     const brandStats = this.placementService.getStatsByBrand();
     const brandAnalytics = this.analyticsService.getBrandComparison();
 
-    const report = new Map<string, any>();
+    const report = new Map<string, BrandPerformanceReport>();
 
     for (const [brand, stats] of brandStats.entries()) {
       const analytics = brandAnalytics.get(brand) || {

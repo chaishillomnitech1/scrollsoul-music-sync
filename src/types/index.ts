@@ -123,3 +123,20 @@ export interface VydiaSyncStatus {
   syncStatus: 'SYNCED' | 'PENDING' | 'FAILED' | 'NOT_SYNCED';
   errorMessage?: string;
 }
+
+/**
+ * Brand performance report interface
+ */
+export interface BrandPerformanceReport {
+  count: number;
+  views: number;
+  impressions: number;
+  campaigns: number;
+  revenue: number;
+  reach: number;
+}
+
+/**
+ * Sort by metric type for analytics
+ */
+export type SortByMetric = 'revenue' | 'reach' | 'impressions';

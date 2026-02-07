@@ -97,8 +97,10 @@ describe('MusicSyncPlatform', () => {
 
     const nikeStats = report.get('Nike');
     expect(nikeStats).toBeDefined();
-    expect(nikeStats.count).toBe(1);
-    expect(nikeStats.views).toBe(1000000);
+    if (nikeStats) {
+      expect(nikeStats.count).toBe(1);
+      expect(nikeStats.views).toBe(1000000);
+    }
   });
 
   it('should get campaign performance for specific brand', () => {
