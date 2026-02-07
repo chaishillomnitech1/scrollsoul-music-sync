@@ -87,6 +87,6 @@ export class RaribleService {
   }
 
   private generateId(): string {
-    return `rarible_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `rarible_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
   }
 }

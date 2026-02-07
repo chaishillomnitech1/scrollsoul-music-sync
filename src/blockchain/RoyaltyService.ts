@@ -227,7 +227,7 @@ export class RoyaltyAutomationService {
   }
 
   private generateId(): string {
-    return `contract_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `contract_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
   }
 
   private generateContractAddress(network: string): string {

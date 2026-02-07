@@ -186,7 +186,7 @@ export class SubscriptionService {
 
     // In production, this would create a Stripe subscription
     if (paymentMethodId) {
-      subscription.stripeSubscriptionId = `sub_${Math.random().toString(36).substr(2, 16)}`;
+      subscription.stripeSubscriptionId = `sub_${Math.random().toString(36).substring(2, 16)}`;
     }
 
     this.subscriptions.set(subscription.id, subscription);
@@ -337,7 +337,7 @@ export class SubscriptionService {
   }
 
   private generateId(): string {
-    return `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
   }
 
   private getNextPeriodEnd(start: Date): Date {

@@ -256,10 +256,10 @@ export class TenantService {
   }
 
   private generateId(): string {
-    return `tenant_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `tenant_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
   }
 
   private generateAPIKey(): string {
-    return `sk_${Math.random().toString(36).substr(2, 32)}`;
+    return `sk_${Math.random().toString(36).substring(2, 32)}`;
   }
 }

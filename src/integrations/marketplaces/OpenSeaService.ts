@@ -142,6 +142,6 @@ export class OpenSeaService {
   }
 
   private generateListingId(): string {
-    return `listing_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `listing_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
   }
 }

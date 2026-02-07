@@ -246,10 +246,10 @@ export class EnterpriseSecurityService {
   }
 
   private generateAuditId(): string {
-    return `audit_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `audit_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
   }
 
   private generateScanId(): string {
-    return `scan_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `scan_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
   }
 }

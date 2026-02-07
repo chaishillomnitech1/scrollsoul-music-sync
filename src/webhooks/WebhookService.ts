@@ -234,7 +234,7 @@ export class WebhookService {
   }
 
   private generateId(): string {
-    return `wh_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `wh_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
   }
 
   private generateSecret(): string {

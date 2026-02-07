@@ -288,10 +288,10 @@ export class SLAMonitor {
   }
 
   private generateIncidentId(): string {
-    return `inc_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `inc_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
   }
 
   private generateCreditId(): string {
-    return `credit_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `credit_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
   }
 }
