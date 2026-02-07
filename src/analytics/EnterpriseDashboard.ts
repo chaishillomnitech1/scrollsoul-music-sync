@@ -24,7 +24,7 @@ export interface MetricDataPoint {
 /**
  * Real-time usage metrics
  */
-export interface UsageMetrics {
+export interface AnalyticsUsageMetrics {
   id: string;
   companyId: string;
   period: MetricPeriod;
@@ -148,7 +148,7 @@ export interface ExecutiveSummary {
  * Comprehensive business intelligence and reporting
  */
 export class EnterpriseDashboard {
-  private usageMetrics: Map<string, UsageMetrics> = new Map();
+  private usageMetrics: Map<string, AnalyticsUsageMetrics> = new Map();
   private revenueMetrics: Map<string, RevenueMetrics> = new Map();
   private engagementMetrics: Map<string, EngagementMetrics> = new Map();
   private reportConfigs: Map<string, ReportConfig> = new Map();
@@ -158,11 +158,11 @@ export class EnterpriseDashboard {
   /**
    * Get real-time usage metrics
    */
-  getUsageMetrics(companyId: string, period: MetricPeriod = MetricPeriod.DAY): UsageMetrics {
+  getUsageMetrics(companyId: string, period: MetricPeriod = MetricPeriod.DAY): AnalyticsUsageMetrics {
     // Generate simulated metrics
     const dataPoints = this.generateDataPoints(period);
 
-    const metrics: UsageMetrics = {
+    const metrics: AnalyticsUsageMetrics = {
       id: uuidv4(),
       companyId,
       period,
