@@ -1,0 +1,43 @@
+name: Generate Changelog
+
+on:
+  release:
+    types: [created, published]
+  workflow_dispatch:
+
+jobs:
+  changelog:
+    name: Generate and Update Changelog
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Generate changelog
+      id: changelog
+      run: |
+        echo "# Changelog" > CHANGELOG.md
+        echo "" >> CHANGELOG.md
+        echo "All notable changes to ScrollSoul Music Sync Platform." >> CHANGELOG.md
+        echo "" >> CHANGELOG.md
+        
+        # Get tags and generate changelog from git log
+        git log --pretty=format:"- %s (%h) - %ad" --date=short >> CHANGELOG.md
+        
+        echo "✅ Changelog generated"
+        
+    - name: Commit changelog
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add CHANGELOG.md
+        git diff --quiet && git diff --staged --quiet || git commit -m "chore: update changelog"
+        
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}

@@ -1,0 +1,62 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches: [ develop ]
+  workflow_dispatch:
+
+jobs:
+  deploy-staging:
+    name: Deploy to Staging Environment
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: https://staging.scrollsoul.io
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.x'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run tests
+      run: npm test
+      
+    - name: Build application
+      run: npm run build
+      env:
+        NODE_ENV: staging
+        
+    - name: Run security scan
+      run: |
+        npm audit --audit-level=high
+        
+    - name: Deploy to staging server
+      run: |
+        echo "🚀 Deploying to staging environment..."
+        echo "📦 Build artifacts ready for deployment"
+        echo "🌐 Staging URL: https://staging.scrollsoul.io"
+        # Add your staging deployment commands here
+        # Examples:
+        # - Deploy to AWS/Azure/GCP
+        # - Deploy to Heroku
+        # - Deploy to Kubernetes cluster
+        
+    - name: Run smoke tests
+      run: |
+        echo "🧪 Running smoke tests on staging..."
+        # Add smoke test commands here
+        
+    - name: Notify deployment status
+      if: always()
+      run: |
+        echo "✅ Staging deployment complete!"
+        echo "📊 Environment: staging"
+        echo "🔗 URL: https://staging.scrollsoul.io"

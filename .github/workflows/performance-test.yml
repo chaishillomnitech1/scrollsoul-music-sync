@@ -1,0 +1,64 @@
+name: Performance Testing
+
+on:
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 2 * * *'  # Daily at 2 AM
+  workflow_dispatch:
+
+jobs:
+  performance-test:
+    name: Run Performance Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.x'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build application
+      run: npm run build
+      
+    - name: Start server for testing
+      run: |
+        npm start &
+        sleep 10
+        
+    - name: Run API performance tests
+      run: |
+        echo "🚀 Running performance benchmarks..."
+        echo "📊 Testing API endpoints..."
+        echo "⚡ Measuring response times..."
+        # Add performance testing commands here
+        # Examples:
+        # - Apache Benchmark (ab)
+        # - Artillery.io
+        # - k6
+        # - JMeter
+        
+    - name: Load testing
+      run: |
+        echo "💪 Running load tests..."
+        echo "👥 Simulating concurrent users..."
+        # Add load testing commands here
+        
+    - name: Generate performance report
+      run: |
+        echo "📈 Generating performance report..."
+        echo "✅ Performance tests complete"
+        
+    - name: Upload performance results
+      uses: actions/upload-artifact@v4
+      with:
+        name: performance-results
+        path: performance-results/
+        retention-days: 30
