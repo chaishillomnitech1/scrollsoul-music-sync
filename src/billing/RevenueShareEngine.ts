@@ -92,7 +92,7 @@ export interface InvoiceLineItem {
 }
 
 /**
- * Usage metrics
+ * Usage metrics for billing
  */
 export interface BillingUsageMetrics {
   id: string;
