@@ -9,6 +9,8 @@ jobs:
   changelog:
     name: Generate and Update Changelog
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
     - name: Checkout code

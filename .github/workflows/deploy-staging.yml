@@ -9,6 +9,8 @@ jobs:
   deploy-staging:
     name: Deploy to Staging Environment
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     environment:
       name: staging
       url: https://staging.scrollsoul.io
