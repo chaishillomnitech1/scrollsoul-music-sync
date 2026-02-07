@@ -59,7 +59,7 @@ jobs:
         echo "✅ Performance tests complete"
         
     - name: Upload performance results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: performance-results
         path: performance-results/
