@@ -1,7 +1,7 @@
 {
   "name": "scrollsoul-music-sync",
-  "version": "1.0.0",
-  "description": "ScrollSoul Music Sync Platform - Music metadata and licensing API for film, TV, sports, and advertising campaigns",
+  "version": "1.1.0",
+  "description": "ScrollSoul Music Sync Platform - Music metadata and licensing API for film, TV, sports, and advertising campaigns with Empire-wide integration",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
@@ -14,7 +14,11 @@
     "royalties",
     "metadata",
     "sync",
-    "scrollsoul"
+    "scrollsoul",
+    "empire",
+    "integration",
+    "nft",
+    "legion"
   ],
   "author": "ScrollSoul Sovereign Empire",
   "license": "MIT",
