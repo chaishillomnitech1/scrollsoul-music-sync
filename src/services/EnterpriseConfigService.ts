@@ -119,6 +119,7 @@ export class EnterpriseConfigManager {
 
   /**
    * Update enterprise configuration
+   * Note: clientId and clientSecret cannot be changed after creation
    */
   updateConfig(clientId: string, updates: Partial<EnterpriseConfig>): EnterpriseConfig {
     const existing = this.configs.get(clientId);
@@ -126,9 +127,14 @@ export class EnterpriseConfigManager {
       throw new Error(`Configuration not found for client: ${clientId}`);
     }
 
+    // Prevent modification of immutable fields
+    const { clientId: _, clientSecret: __, ...allowedUpdates } = updates;
+
     const updated: EnterpriseConfig = {
       ...existing,
-      ...updates,
+      ...allowedUpdates,
+      clientId: existing.clientId, // Preserve original clientId
+      clientSecret: existing.clientSecret, // Preserve original clientSecret
       updatedAt: new Date(),
     };
 
