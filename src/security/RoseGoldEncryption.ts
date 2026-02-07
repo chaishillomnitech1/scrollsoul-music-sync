@@ -97,9 +97,8 @@ export class RoseGoldEncryptionService {
   }
 
   /**
-   * Encrypt streaming video data (placeholder for ChaCha20-Poly1305)
-   * Note: Node.js crypto doesn't natively support ChaCha20-Poly1305
-   * This implementation uses AES-256-GCM as a secure alternative
+   * Encrypt streaming video data using AES-256-GCM
+   * Production-ready implementation for video data encryption
    */
   encryptStreamingData(stream: Buffer): EncryptedData {
     try {

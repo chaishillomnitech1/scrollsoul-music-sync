@@ -307,7 +307,7 @@ export class AutoContentPipeline {
     await this.nftStoryService.updateStatus(job.storySetId, 'published');
 
     if (this.config.autoPublish) {
-      await this.publishToplatforms(job.storySetId, generatedVideo);
+      await this.publishToPlatforms(job.storySetId, generatedVideo);
     }
   }
 
@@ -326,7 +326,7 @@ export class AutoContentPipeline {
   /**
    * Publish video to multiple platforms
    */
-  private async publishToplatforms(
+  private async publishToPlatforms(
     storySetId: string,
     video: GeneratedVideo
   ): Promise<void> {
