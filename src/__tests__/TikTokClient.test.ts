@@ -9,6 +9,7 @@ describe('TikTokClient', () => {
 
   beforeEach(() => {
     client = new TikTokClient('test-api-key');
+    client = new TikTokClient('test-access-token');
   });
 
   describe('Constructor', () => {
@@ -38,6 +39,10 @@ describe('TikTokClient', () => {
       expect(result).toBeDefined();
       expect(result.trackId).toBe('track-123');
       expect(result.syncStatus).toBeDefined();
+  describe('TikTok API Methods', () => {
+    it('should have necessary methods', () => {
+      expect(typeof client.getSyncStatus).toBe('function');
+      expect(typeof client.getMusicAnalytics).toBe('function');
     });
   });
 });
