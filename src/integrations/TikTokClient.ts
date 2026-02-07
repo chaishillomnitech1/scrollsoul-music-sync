@@ -260,3 +260,53 @@ export class TikTokClient {
     };
   }
 }
+
+/**
+ * TikTok API Integration Client
+ * Handles video uploads, metadata sync, and analytics for TikTok
+ */
+
+export interface TikTokVideo {
+  id: string;
+  title: string;
+  description: string;
+  videoUrl: string;
+  coverImageUrl: string;
+  duration: number;
+  views: number;
+  likes: number;
+  comments: number;
+  shares: number;
+  createdAt: string;
+}
+
+export interface TikTokUploadOptions {
+  videoUrl: string;
+  title: string;
+  description: string;
+  privacyLevel: 'PUBLIC' | 'FRIENDS' | 'SELF';
+  disableComment?: boolean;
+  disableDuet?: boolean;
+  disableStitch?: boolean;
+}
+
+export interface TikTokAnalytics {
+  videoId: string;
+  views: number;
+  likes: number;
+  comments: number;
+  shares: number;
+  playDuration: number;
+  averageWatchTime: number;
+  reachRate: number;
+  engagementRate: number;
+}
+
+export interface TikTokMusicInfo {
+  musicId: string;
+  musicTitle: string;
+  musicAuthor: string;
+  musicUrl: string;
+  duration: number;
+}
+

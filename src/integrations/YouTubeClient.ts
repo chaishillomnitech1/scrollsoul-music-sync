@@ -225,3 +225,48 @@ export class YouTubeClient {
     return hours * 3600 + minutes * 60 + seconds;
   }
 }
+
+/**
+ * YouTube API Integration Client
+ * Handles video uploads, metadata sync, and analytics
+ */
+
+export interface YouTubeVideo {
+  id: string;
+  title: string;
+  description: string;
+  categoryId: string;
+  tags: string[];
+  privacyStatus: 'public' | 'private' | 'unlisted';
+  thumbnailUrl?: string;
+  publishedAt?: string;
+}
+
+export interface YouTubeMetadata {
+  title: string;
+  description: string;
+  tags: string[];
+  categoryId: string;
+  defaultLanguage?: string;
+  defaultAudioLanguage?: string;
+}
+
+export interface YouTubeAnalytics {
+  videoId: string;
+  views: number;
+  likes: number;
+  dislikes: number;
+  comments: number;
+  shares: number;
+  watchTimeMinutes: number;
+  averageViewDuration: number;
+  subscribersGained: number;
+}
+
+export interface YouTubeUploadOptions {
+  file: Buffer | string;
+  metadata: YouTubeMetadata;
+  privacyStatus: 'public' | 'private' | 'unlisted';
+  notifySubscribers?: boolean;
+}
+
