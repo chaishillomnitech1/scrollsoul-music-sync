@@ -102,8 +102,6 @@ export class LearningEngine {
     }
 
     // Suggest test based on variance in performance
-    const avgCTR = this.calculateAverageCTR();
-    
     return {
       variable: 'thumbnail_style',
       variantA: 'Close-up with face',
@@ -186,7 +184,6 @@ export class LearningEngine {
     // Pattern 2: Optimal length
     const shortVideos = this.performanceHistory.filter(p => p.watchTime < 60);
     if (shortVideos.length > 0) {
-      const avgPerf = this.calculateAveragePerformance(shortVideos);
       this.patterns.push({
         pattern: 'Short-form content (<60s) maintains higher engagement',
         confidence: 75,

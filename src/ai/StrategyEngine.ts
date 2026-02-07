@@ -57,7 +57,7 @@ export class AIStrategyEngine {
   /**
    * Analyze competitor content and suggest improvements
    */
-  async analyzeCompetitors(niche: string): Promise<CompetitiveInsights> {
+  async analyzeCompetitors(_niche: string): Promise<CompetitiveInsights> {
     // In production: Scrape and analyze competitor content
     return {
       topCompetitors: [
@@ -113,7 +113,7 @@ export class AIStrategyEngine {
   /**
    * Generate viral content ideas
    */
-  async generateViralConcepts(currentTrends: Trend[]): Promise<ContentIdea[]> {
+  async generateViralConcepts(_currentTrends: Trend[]): Promise<ContentIdea[]> {
     return [
       {
         title: 'Hidden Gems: Undervalued NFTs That Could 10x',
@@ -142,7 +142,7 @@ export class AIStrategyEngine {
   /**
    * Optimize existing content performance
    */
-  async suggestContentImprovements(videoId: string): Promise<Improvement[]> {
+  async suggestContentImprovements(_videoId: string): Promise<Improvement[]> {
     // In production: Analyze video performance data
     return [
       {
