@@ -92,9 +92,9 @@ export interface InvoiceLineItem {
 }
 
 /**
- * Usage metrics
+ * Usage metrics for billing
  */
-export interface UsageMetrics {
+export interface BillingUsageMetrics {
   id: string;
   companyId: string;
   period: Date;
@@ -139,7 +139,7 @@ export interface AffiliateCommission {
 export class RevenueShareEngine {
   private billingPlans: Map<string, BillingPlan> = new Map();
   private invoices: Map<string, Invoice> = new Map();
-  private usageMetrics: Map<string, UsageMetrics> = new Map();
+  private usageMetrics: Map<string, BillingUsageMetrics> = new Map();
   private revenueShares: Map<string, RevenueShareDistribution> = new Map();
   private affiliateCommissions: Map<string, AffiliateCommission> = new Map();
 
@@ -194,9 +194,9 @@ export class RevenueShareEngine {
   recordUsage(
     companyId: string,
     period: Date,
-    metrics: Omit<UsageMetrics, 'id' | 'companyId' | 'period'>
-  ): UsageMetrics {
-    const usage: UsageMetrics = {
+    metrics: Omit<BillingUsageMetrics, 'id' | 'companyId' | 'period'>
+  ): BillingUsageMetrics {
+    const usage: BillingUsageMetrics = {
       id: uuidv4(),
       companyId,
       period,
@@ -291,7 +291,7 @@ export class RevenueShareEngine {
   /**
    * Get usage for period
    */
-  private getUsageForPeriod(companyId: string, period: Date): UsageMetrics | undefined {
+  private getUsageForPeriod(companyId: string, period: Date): BillingUsageMetrics | undefined {
     return Array.from(this.usageMetrics.values()).find(
       (u) => u.companyId === companyId && this.isSamePeriod(u.period, period)
     );
