@@ -250,4 +250,103 @@ router.put('/:id', (req, res) => {
   }
 });
 
+// POST /api/royalties/distribute - Distribute royalties across fiat and crypto streams
+router.post('/distribute', (req, res) => {
+  try {
+    const {
+      trackId,
+      trackTitle,
+      totalAmount,
+      currency,
+      cryptoAmount,
+      cryptoCurrency,
+      recipients,
+      period,
+      source
+    } = req.body;
+
+    // Validate required fields
+    if (!trackId || !totalAmount || !recipients || recipients.length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required fields: trackId, totalAmount, and recipients are required'
+      });
+    }
+
+    // Calculate distributions
+    const fiatDistributions = [];
+    const cryptoDistributions = [];
+    
+    recipients.forEach(recipient => {
+      const fiatShare = totalAmount * (recipient.percentage || 0) / 100;
+      const cryptoShare = cryptoAmount ? cryptoAmount * (recipient.percentage || 0) / 100 : 0;
+      
+      if (recipient.paymentType === 'fiat' || recipient.paymentType === 'both') {
+        fiatDistributions.push({
+          recipientId: recipient.id,
+          recipientName: recipient.name,
+          recipientType: recipient.type,
+          amount: fiatShare,
+          currency: currency || 'USD',
+          percentage: recipient.percentage,
+          status: 'pending',
+          paymentMethod: 'bank_transfer'
+        });
+      }
+      
+      if (cryptoAmount && (recipient.paymentType === 'crypto' || recipient.paymentType === 'both')) {
+        cryptoDistributions.push({
+          recipientId: recipient.id,
+          recipientName: recipient.name,
+          recipientType: recipient.type,
+          amount: cryptoShare,
+          currency: cryptoCurrency || 'ETH',
+          percentage: recipient.percentage,
+          walletAddress: recipient.walletAddress,
+          network: recipient.network || 'Ethereum',
+          status: 'pending',
+          transactionHash: null,
+          roseGoldEncryption: true
+        });
+      }
+    });
+
+    const distribution = {
+      id: Date.now(),
+      trackId,
+      trackTitle: trackTitle || `Track ${trackId}`,
+      period: period || new Date().toISOString().slice(0, 7),
+      source: source || 'Multiple Sources',
+      totalAmount,
+      currency: currency || 'USD',
+      cryptoAmount: cryptoAmount || 0,
+      cryptoCurrency: cryptoCurrency || 'ETH',
+      fiatDistributions,
+      cryptoDistributions,
+      status: 'processing',
+      createdAt: new Date().toISOString(),
+      summary: {
+        totalRecipients: recipients.length,
+        fiatRecipients: fiatDistributions.length,
+        cryptoRecipients: cryptoDistributions.length,
+        totalFiatDistributed: fiatDistributions.reduce((sum, d) => sum + d.amount, 0),
+        totalCryptoDistributed: cryptoDistributions.reduce((sum, d) => sum + d.amount, 0),
+        roseGoldEncrypted: cryptoDistributions.length > 0
+      }
+    };
+
+    res.status(201).json({
+      success: true,
+      message: '💰 Royalty distribution initiated successfully',
+      data: distribution,
+      encryption: cryptoDistributions.length > 0 ? 'Rose Gold Quantum Encryption Active ✨' : 'Standard Encryption'
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
 module.exports = router;

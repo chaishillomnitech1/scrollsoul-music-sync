@@ -33,6 +33,37 @@ export enum LicenseType {
 }
 
 /**
+ * Publisher information for license tracking
+ */
+export interface PublisherInfo {
+  name: string;
+  contactEmail?: string;
+  contactPhone?: string;
+  address?: string;
+  taxId?: string;
+}
+
+/**
+ * PRO (Performance Rights Organization) identifiers
+ */
+export interface PROIdentifiers {
+  bmi?: string; // BMI identifier
+  ascap?: string; // ASCAP identifier
+  sesac?: string; // SESAC identifier
+  other?: { [key: string]: string }; // Other PRO identifiers
+}
+
+/**
+ * Crypto wallet information for payments
+ */
+export interface CryptoWalletInfo {
+  address: string;
+  network: string; // e.g., 'Ethereum', 'Polygon', 'BSC'
+  currency: string; // e.g., 'ETH', 'USDC', 'BTC'
+  verified: boolean;
+}
+
+/**
  * License interface for tracking music licensing
  */
 export interface License {
@@ -47,6 +78,13 @@ export interface License {
   currency: string;
   terms?: string;
   status: 'ACTIVE' | 'EXPIRED' | 'PENDING' | 'TERMINATED';
+  // Enhanced publisher tracking
+  publisher?: PublisherInfo;
+  proIdentifiers?: PROIdentifiers;
+  // Crypto payment support
+  cryptoWallet?: CryptoWalletInfo;
+  cryptoFee?: number;
+  cryptoCurrency?: string;
   createdAt: Date;
   updatedAt: Date;
 }

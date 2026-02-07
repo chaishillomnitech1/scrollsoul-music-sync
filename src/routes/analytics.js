@@ -166,6 +166,58 @@ router.get('/dashboard', (req, res) => {
       platforms: 12,
       lastSyncTime: '2026-02-07T12:00:00Z'
     },
+    // Enhanced publishing analytics
+    publishing: {
+      totalPublishers: 2,
+      activePublishers: 2,
+      totalCatalogTracks: 1500002,
+      totalCatalogRevenue: 5000137000,
+      streamingRoyalties: {
+        total: 720,
+        platforms: {
+          spotify: 450,
+          appleMusic: 180,
+          youtubeMusic: 90
+        },
+        growth: '+15.2%',
+        lastUpdated: new Date().toISOString()
+      },
+      placements: {
+        film: 1,
+        tv: 0,
+        advertising: 1,
+        sports: 1,
+        totalValue: 125000,
+        avgValue: 41666.67
+      },
+      cryptoPayouts: {
+        totalValue: 0.0318,
+        currency: 'ETH',
+        totalTransactions: 1,
+        networks: ['Ethereum', 'Polygon'],
+        roseGoldEncrypted: true,
+        recentPayouts: [
+          {
+            amount: 0.0318,
+            currency: 'ETH',
+            recipient: 'Artist Wallet',
+            timestamp: '2026-02-07T18:00:00Z',
+            status: 'confirmed'
+          }
+        ]
+      },
+      proIdentifiers: {
+        bmi: 2,
+        ascap: 1,
+        sesac: 0
+      },
+      blockchain: {
+        totalWallets: 2,
+        totalBalance: 51000000,
+        networks: ['Ethereum', 'Polygon', 'BSC'],
+        verified: true
+      }
+    },
     sovereignty: {
       alignment: 'Perfect',
       resonance: 'Omniversal',

@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { License as ILicense, LicenseType } from '../types';
+import { License as ILicense, LicenseType, PublisherInfo, PROIdentifiers, CryptoWalletInfo } from '../types';
 
 /**
  * License class for tracking music licensing
@@ -16,6 +16,13 @@ export class License implements ILicense {
   currency: string;
   terms?: string;
   status: 'ACTIVE' | 'EXPIRED' | 'PENDING' | 'TERMINATED';
+  // Enhanced publisher tracking
+  publisher?: PublisherInfo;
+  proIdentifiers?: PROIdentifiers;
+  // Crypto payment support
+  cryptoWallet?: CryptoWalletInfo;
+  cryptoFee?: number;
+  cryptoCurrency?: string;
   createdAt: Date;
   updatedAt: Date;
 
@@ -31,6 +38,11 @@ export class License implements ILicense {
     this.currency = data.currency;
     this.terms = data.terms;
     this.status = data.status;
+    this.publisher = data.publisher;
+    this.proIdentifiers = data.proIdentifiers;
+    this.cryptoWallet = data.cryptoWallet;
+    this.cryptoFee = data.cryptoFee;
+    this.cryptoCurrency = data.cryptoCurrency;
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }
@@ -74,6 +86,24 @@ export class License implements ILicense {
   }
 
   /**
+   * Check if crypto payment is enabled
+   */
+  hasCryptoPayment(): boolean {
+    return !!this.cryptoWallet && !!this.cryptoFee;
+  }
+
+  /**
+   * Get total payment amount (fiat + crypto if applicable)
+   */
+  getTotalValue(): { fiat: number; crypto?: number; cryptoCurrency?: string } {
+    return {
+      fiat: this.fee,
+      crypto: this.cryptoFee,
+      cryptoCurrency: this.cryptoCurrency,
+    };
+  }
+
+  /**
    * Convert to JSON
    */
   toJSON(): ILicense {
@@ -89,6 +119,11 @@ export class License implements ILicense {
       currency: this.currency,
       terms: this.terms,
       status: this.status,
+      publisher: this.publisher,
+      proIdentifiers: this.proIdentifiers,
+      cryptoWallet: this.cryptoWallet,
+      cryptoFee: this.cryptoFee,
+      cryptoCurrency: this.cryptoCurrency,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };

@@ -167,6 +167,170 @@ let phaseTracking = [
   }
 ];
 
+// GET /api/publishing - Sync new publishers (main endpoint)
+router.get('/', (req, res) => {
+  const { status, type } = req.query;
+  let filtered = publishingCompanies;
+  
+  if (status) {
+    filtered = filtered.filter(c => c.status === status);
+  }
+  if (type) {
+    filtered = filtered.filter(c => c.type === type);
+  }
+  
+  res.json({
+    success: true,
+    message: '🏛️ Publishing Partners Synchronized',
+    count: filtered.length,
+    data: filtered,
+    sync: {
+      timestamp: new Date().toISOString(),
+      totalPartners: publishingCompanies.length,
+      activePartners: publishingCompanies.filter(c => c.status === 'active').length,
+      roseGoldEncrypted: true
+    }
+  });
+});
+      smartContract: '0x...',
+      verified: true
+    },
+    status: 'active'
+  },
+  {
+    id: 2,
+    name: 'Universal Music Publishing',
+    type: 'partner',
+    founded: '1934-01-01',
+    territories: ['USA', 'Europe', 'Asia'],
+    digitalWallet: {
+      address: '0x8ba1f109551bD432803012645Ac136ddd64DBA72',
+      currency: 'USDC',
+      balance: 50000000,
+      roseGoldEncryption: true
+    },
+    catalog: {
+      totalTracks: 1500000,
+      totalRevenue: 5000000000,
+      activeContracts: 25000
+    },
+    blockchain: {
+      network: 'Polygon',
+      smartContract: '0x...',
+      verified: true
+    },
+    status: 'active'
+  }
+];
+
+// Digital Currency Transactions
+let digitalTransactions = [
+  {
+    id: 1,
+    transactionHash: '0x1a2b3c4d5e6f7g8h9i0j...',
+    publisherId: 1,
+    publisherName: 'ScrollSoul Empire Publishing',
+    type: 'royalty_payment',
+    phase: 'distribution',
+    trackId: 1,
+    trackTitle: 'ScrollSoul Awakening',
+    amount: 95310,
+    currency: 'ETH',
+    cryptoAmount: 0.0318,
+    sender: {
+      wallet: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb',
+      name: 'ScrollSoul Empire Publishing'
+    },
+    recipient: {
+      wallet: '0x9876543210abcdef...',
+      name: 'Artist Wallet',
+      verified: true
+    },
+    encryption: {
+      method: 'rose-gold-quantum',
+      level: 'maximum',
+      verified: true
+    },
+    blockchain: {
+      network: 'Ethereum',
+      confirmations: 12,
+      gasUsed: 21000,
+      gasPrice: 50
+    },
+    timestamp: '2026-02-07T18:00:00Z',
+    status: 'confirmed'
+  }
+];
+
+// Multi-Phase Tracking Records
+let phaseTracking = [
+  {
+    id: 1,
+    publisherId: 1,
+    trackId: 1,
+    trackTitle: 'ScrollSoul Awakening',
+    phases: {
+      production: {
+        status: 'completed',
+        startDate: '2026-01-01',
+        completionDate: '2026-01-15',
+        costs: 5000,
+        cryptoPayment: {
+          txHash: '0xabc123...',
+          amount: 0.00167,
+          currency: 'ETH'
+        },
+        participants: ['Producer A', 'Engineer B'],
+        encrypted: true
+      },
+      mastering: {
+        status: 'completed',
+        startDate: '2026-01-16',
+        completionDate: '2026-01-20',
+        costs: 2000,
+        cryptoPayment: {
+          txHash: '0xdef456...',
+          amount: 0.00067,
+          currency: 'ETH'
+        },
+        studio: 'ScrollSoul Mastering',
+        encrypted: true
+      },
+      distribution: {
+        status: 'active',
+        startDate: '2026-01-21',
+        platforms: ['Spotify', 'Apple Music', 'YouTube Music'],
+        revenue: 720,
+        cryptoRevenue: 0.00024,
+        currency: 'ETH',
+        encrypted: true
+      },
+      licensing: {
+        status: 'active',
+        agreements: 2,
+        totalValue: 125000,
+        cryptoValue: 41.67,
+        currency: 'ETH',
+        encrypted: true
+      },
+      royaltyDistribution: {
+        status: 'processing',
+        totalPaid: 95310,
+        totalCrypto: 0.0318,
+        recipients: 3,
+        nextPayment: '2026-04-01',
+        encrypted: true
+      }
+    },
+    roseGoldEncryption: {
+      enabled: true,
+      level: 'quantum',
+      keys: ['key1', 'key2', 'key3'],
+      verified: true
+    }
+  }
+];
+
 // GET all publishing companies
 router.get('/companies', (req, res) => {
   res.json({
