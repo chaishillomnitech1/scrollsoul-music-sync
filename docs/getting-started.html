@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started - ScrollSoul Music Sync</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { margin-bottom: 1rem; }
+        h2 { color: #667eea; margin-top: 2rem; margin-bottom: 1rem; }
+        h3 { color: #764ba2; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+        .step {
+            background: #f9f9f9;
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        ul { margin-left: 2rem; margin-top: 0.5rem; }
+        li { margin: 0.5rem 0; }
+        a { color: #667eea; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Getting Started with ScrollSoul Music Sync</h1>
+        <p>Your complete guide to automating music distribution</p>
+        <a href="index.html" class="back-link">← Back to Home</a>
+    </header>
+
+    <div class="container">
+        <h2>📋 Prerequisites</h2>
+        <p>Before you begin, make sure you have:</p>
+        <ul>
+            <li>Node.js 14.0.0 or higher installed</li>
+            <li>npm or yarn package manager</li>
+            <li>Git for version control</li>
+            <li>API credentials for platforms you want to integrate (YouTube, TikTok, Spotify, Vydia)</li>
+        </ul>
+
+        <h2>🚀 Quick Start</h2>
+        
+        <div class="step">
+            <h3>Step 1: Installation</h3>
+            <p>Install ScrollSoul Music Sync via npm:</p>
+            <pre><code>npm install scrollsoul-music-sync</code></pre>
+            <p>Or using yarn:</p>
+            <pre><code>yarn add scrollsoul-music-sync</code></pre>
+        </div>
+
+        <div class="step">
+            <h3>Step 2: Clone the Repository (for development)</h3>
+            <p>If you want to run the full platform locally:</p>
+            <pre><code>git clone https://github.com/chaishillomnitech1/scrollsoul-music-sync.git
+cd scrollsoul-music-sync
+npm install</code></pre>
+        </div>
+
+        <div class="step">
+            <h3>Step 3: Configuration</h3>
+            <p>Create a <code>.env</code> file in the root directory:</p>
+            <pre><code>cp .env.example .env</code></pre>
+            <p>Edit the <code>.env</code> file with your API credentials:</p>
+            <pre><code># YouTube API Configuration
+YOUTUBE_API_KEY=your_youtube_api_key
+YOUTUBE_CLIENT_ID=your_client_id
+YOUTUBE_CLIENT_SECRET=your_client_secret
+
+# TikTok API Configuration
+TIKTOK_CLIENT_KEY=your_tiktok_client_key
+TIKTOK_CLIENT_SECRET=your_tiktok_client_secret
+TIKTOK_ACCESS_TOKEN=your_access_token
+
+# Spotify API Configuration
+SPOTIFY_CLIENT_ID=your_spotify_client_id
+SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
+
+# Vydia API Configuration
+VYDIA_API_KEY=your_vydia_api_key</code></pre>
+        </div>
+
+        <div class="note">
+            <strong>Note:</strong> You'll need to obtain API credentials from each platform:
+            <ul>
+                <li><strong>YouTube:</strong> <a href="https://console.cloud.google.com/" target="_blank">Google Cloud Console</a></li>
+                <li><strong>TikTok:</strong> <a href="https://developers.tiktok.com/" target="_blank">TikTok Developers</a></li>
+                <li><strong>Spotify:</strong> <a href="https://developer.spotify.com/dashboard" target="_blank">Spotify Developer Dashboard</a></li>
+                <li><strong>Vydia:</strong> Contact Vydia for API access</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>Step 4: Build the Project</h3>
+            <pre><code>npm run build</code></pre>
+        </div>
+
+        <div class="step">
+            <h3>Step 5: Start the Server</h3>
+            <p>For development:</p>
+            <pre><code>npm run dev</code></pre>
+            <p>For production:</p>
+            <pre><code>npm start</code></pre>
+        </div>
+
+        <div class="success">
+            <strong>✅ Success!</strong> Your server should now be running on <code>http://localhost:3000</code>
+        </div>
+
+        <h2>💻 Basic Usage</h2>
+
+        <h3>Using as a Library</h3>
+        <pre><code>import { 
+  YouTubeClient, 
+  TikTokClient, 
+  SpotifyClient, 
+  VydiaClient 
+} from 'scrollsoul-music-sync';
+
+// Initialize clients
+const youtube = new YouTubeClient({
+  apiKey: process.env.YOUTUBE_API_KEY,
+  clientId: process.env.YOUTUBE_CLIENT_ID,
+  clientSecret: process.env.YOUTUBE_CLIENT_SECRET
+});
+
+const spotify = new SpotifyClient({
+  clientId: process.env.SPOTIFY_CLIENT_ID,
+  clientSecret: process.env.SPOTIFY_CLIENT_SECRET
+});
+
+// Authenticate
+await spotify.authenticate();
+
+// Upload to YouTube
+const videoId = await youtube.uploadVideo({
+  file: './my-music-video.mp4',
+  metadata: {
+    title: 'My Awesome Song',
+    description: 'Official music video',
+    tags: ['music', 'original'],
+    categoryId: '10' // Music category
+  },
+  privacyStatus: 'public'
+});
+
+// Sync track metadata
+const track = await spotify.syncTrackMetadata({
+  title: 'My Awesome Song',
+  artist: 'My Artist Name',
+  album: 'My Album',
+  isrc: 'USXX12345678'
+});
+
+console.log('YouTube Video ID:', videoId);
+console.log('Spotify Track:', track);</code></pre>
+
+        <h2>🐳 Docker Deployment</h2>
+
+        <h3>Using Docker Compose</h3>
+        <pre><code>docker-compose up -d</code></pre>
+
+        <h3>Build and Run Manually</h3>
+        <pre><code># Build the image
+docker build -t scrollsoul-music-sync .
+
+# Run the container
+docker run -p 3000:3000 --env-file .env scrollsoul-music-sync</code></pre>
+
+        <h2>☸️ Kubernetes Deployment</h2>
+
+        <h3>Deploy to Kubernetes</h3>
+        <pre><code># Apply all Kubernetes manifests
+kubectl apply -f k8s/
+
+# Check deployment status
+kubectl get pods -n scrollsoul
+
+# Get service URL
+kubectl get service scrollsoul-music-sync -n scrollsoul</code></pre>
+
+        <h2>📊 Testing Your Setup</h2>
+
+        <h3>Run Tests</h3>
+        <pre><code>npm test</code></pre>
+
+        <h3>Test API Endpoints</h3>
+        <pre><code># Health check
+curl http://localhost:3000/health
+
+# Get API info
+curl http://localhost:3000/
+
+# Test music endpoint
+curl http://localhost:3000/api/music</code></pre>
+
+        <h2>📚 Next Steps</h2>
+        <ul>
+            <li><a href="api-reference.html">Read the API Documentation</a></li>
+            <li><a href="../blog/technical-tutorial-template.md">Follow the Complete Tutorial</a></li>
+            <li><a href="https://github.com/chaishillomnitech1/scrollsoul-music-sync/issues">Report Issues on GitHub</a></li>
+            <li>Join our community [Discord/Slack]</li>
+        </ul>
+
+        <h2>🆘 Troubleshooting</h2>
+
+        <h3>Port already in use</h3>
+        <p>Change the PORT in your <code>.env</code> file:</p>
+        <pre><code>PORT=3001</code></pre>
+
+        <h3>API authentication errors</h3>
+        <ul>
+            <li>Verify your API keys are correct</li>
+            <li>Check if access tokens have expired</li>
+            <li>Ensure OAuth redirect URIs are configured correctly</li>
+        </ul>
+
+        <h3>Build errors</h3>
+        <pre><code># Clear node_modules and reinstall
+rm -rf node_modules package-lock.json
+npm install
+
+# Rebuild
+npm run build</code></pre>
+
+        <h2>🤝 Getting Help</h2>
+        <ul>
+            <li><strong>Documentation:</strong> <a href="api-reference.html">API Reference</a></li>
+            <li><strong>GitHub Issues:</strong> <a href="https://github.com/chaishillomnitech1/scrollsoul-music-sync/issues">Report a Bug</a></li>
+            <li><strong>Email:</strong> support@scrollsoul.com</li>
+        </ul>
+
+        <div class="success">
+            <strong>🎉 You're all set!</strong> Start distributing your music across all platforms with a single click.
+        </div>
+    </div>
+</body>
+</html>
