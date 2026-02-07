@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Reference - ScrollSoul Music Sync</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { margin-bottom: 1rem; }
+        h2 { color: #667eea; margin-top: 2rem; margin-bottom: 1rem; border-bottom: 2px solid #667eea; padding-bottom: 0.5rem; }
+        h3 { color: #764ba2; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+        h4 { color: #555; margin-top: 1rem; margin-bottom: 0.5rem; }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+        .method {
+            background: #f9f9f9;
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .method-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .http-method {
+            background: #28a745;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 0.85em;
+        }
+        .http-method.post { background: #ffc107; }
+        .http-method.put { background: #17a2b8; }
+        .http-method.delete { background: #dc3545; }
+        .endpoint {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background: #667eea;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        a { color: #667eea; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        .toc {
+            background: #f4f4f4;
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        .toc ul {
+            list-style: none;
+            padding-left: 1rem;
+        }
+        .toc li {
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>API Reference</h1>
+        <p>Complete API documentation for ScrollSoul Music Sync</p>
+        <a href="index.html" class="back-link">← Back to Home</a>
+    </header>
+
+    <div class="container">
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#youtube">YouTube Client</a></li>
+                <li><a href="#tiktok">TikTok Client</a></li>
+                <li><a href="#spotify">Spotify Client</a></li>
+                <li><a href="#vydia">Vydia Client</a></li>
+                <li><a href="#examples">Code Examples</a></li>
+            </ul>
+        </div>
+
+        <h2 id="youtube">YouTube Client</h2>
+        <p>The YouTube client handles video uploads, metadata synchronization, and analytics for YouTube.</p>
+
+        <h3>Constructor</h3>
+        <pre><code>const youtube = new YouTubeClient({
+  apiKey: string,
+  clientId?: string,
+  clientSecret?: string,
+  accessToken?: string,
+  refreshToken?: string
+});</code></pre>
+
+        <h3>Methods</h3>
+
+        <div class="method">
+            <div class="method-header">
+                <h4>uploadVideo(options)</h4>
+            </div>
+            <p>Upload a video to YouTube with metadata.</p>
+            <p><strong>Parameters:</strong></p>
+            <table>
+                <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                <tr><td>options.file</td><td>Buffer | string</td><td>Video file buffer or path</td></tr>
+                <tr><td>options.metadata</td><td>YouTubeMetadata</td><td>Video metadata</td></tr>
+                <tr><td>options.privacyStatus</td><td>'public' | 'private' | 'unlisted'</td><td>Video privacy setting</td></tr>
+                <tr><td>options.notifySubscribers</td><td>boolean</td><td>Optional: Notify subscribers on upload</td></tr>
+            </table>
+            <p><strong>Returns:</strong> <code>Promise&lt;string&gt;</code> - Video ID</p>
+            <pre><code>const videoId = await youtube.uploadVideo({
+  file: './video.mp4',
+  metadata: {
+    title: 'My Music Video',
+    description: 'Official video',
+    tags: ['music', 'original'],
+    categoryId: '10'
+  },
+  privacyStatus: 'public'
+});</code></pre>
+        </div>
+
+        <div class="method">
+            <div class="method-header">
+                <h4>getVideo(videoId)</h4>
+            </div>
+            <p>Get video details by ID.</p>
+            <p><strong>Parameters:</strong></p>
+            <table>
+                <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                <tr><td>videoId</td><td>string</td><td>YouTube video ID</td></tr>
+            </table>
+            <p><strong>Returns:</strong> <code>Promise&lt;YouTubeVideo | null&gt;</code></p>
+            <pre><code>const video = await youtube.getVideo('VIDEO_ID');</code></pre>
+        </div>
+
+        <div class="method">
+            <div class="method-header">
+                <h4>updateVideoMetadata(videoId, metadata)</h4>
+            </div>
+            <p>Update video metadata.</p>
+            <p><strong>Returns:</strong> <code>Promise&lt;boolean&gt;</code></p>
+        </div>
+
+        <div class="method">
+            <div class="method-header">
+                <h4>getVideoAnalytics(videoId)</h4>
+            </div>
+            <p>Get comprehensive analytics for a video.</p>
+            <p><strong>Returns:</strong> <code>Promise&lt;YouTubeAnalytics | null&gt;</code></p>
+            <pre><code>const analytics = await youtube.getVideoAnalytics('VIDEO_ID');
+console.log(`Views: ${analytics.views}`);
+console.log(`Likes: ${analytics.likes}`);</code></pre>
+        </div>
+
+        <div class="method">
+            <div class="method-header">
+                <h4>syncTrackToVideo(videoId, trackData)</h4>
+            </div>
+            <p>Sync music track metadata to a YouTube video.</p>
+            <p><strong>Parameters:</strong></p>
+            <table>
+                <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                <tr><td>videoId</td><td>string</td><td>YouTube video ID</td></tr>
+                <tr><td>trackData.title</td><td>string</td><td>Track title</td></tr>
+                <tr><td>trackData.artist</td><td>string</td><td>Artist name</td></tr>
+                <tr><td>trackData.album</td><td>string</td><td>Optional: Album name</td></tr>
+                <tr><td>trackData.genre</td><td>string</td><td>Optional: Music genre</td></tr>
+                <tr><td>trackData.isrc</td><td>string</td><td>Optional: ISRC code</td></tr>
+            </table>
+        </div>
+
+        <h2 id="tiktok">TikTok Client</h2>
+        <p>The TikTok client handles video distribution, metadata sync, and analytics for TikTok.</p>
+
+        <h3>Constructor</h3>
+        <pre><code>const tiktok = new TikTokClient({
+  accessToken: string,
+  clientKey: string,
+  clientSecret: string
+});</code></pre>
+
+        <h3>Methods</h3>
+
+        <div class="method">
+            <div class="method-header">
+                <h4>uploadVideo(options)</h4>
+            </div>
+            <p>Upload a video to TikTok.</p>
+            <p><strong>Parameters:</strong></p>
+            <table>
+                <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                <tr><td>options.videoUrl</td><td>string</td><td>Video URL</td></tr>
+                <tr><td>options.title</td><td>string</td><td>Video title (max 150 chars)</td></tr>
+                <tr><td>options.description</td><td>string</td><td>Video description (max 2200 chars)</td></tr>
+                <tr><td>options.privacyLevel</td><td>'PUBLIC' | 'FRIENDS' | 'SELF'</td><td>Privacy setting</td></tr>
+            </table>
+            <p><strong>Returns:</strong> <code>Promise&lt;string&gt;</code> - Publish ID</p>
+        </div>
+
+        <div class="method">
+            <div class="method-header">
+                <h4>getVideo(videoId)</h4>
+            </div>
+            <p>Get video details.</p>
+            <p><strong>Returns:</strong> <code>Promise&lt;TikTokVideo | null&gt;</code></p>
+        </div>
+
+        <div class="method">
+            <div class="method-header">
+                <h4>getVideoAnalytics(videoId)</h4>
+            </div>
+            <p>Get video analytics including views, likes, comments, shares.</p>
+            <p><strong>Returns:</strong> <code>Promise&lt;TikTokAnalytics | null&gt;</code></p>
+        </div>
+
+        <div class="method">
+            <div class="method-header">
+                <h4>syncTrackToVideo(videoUrl, trackData)</h4>
+            </div>
+            <p>Sync track metadata and upload to TikTok.</p>
+            <pre><code>const publishId = await tiktok.syncTrackToVideo(
+  'https://video-url.mp4',
+  {
+    title: 'My Song',
+    artist: 'My Artist',
+    genre: 'Electronic'
+  }
+);</code></pre>
+        </div>
+
+        <div class="method">
+            <div class="method-header">
+                <h4>checkPublishStatus(publishId)</h4>
+            </div>
+            <p>Check the status of a video upload.</p>
+            <p><strong>Returns:</strong> <code>Promise&lt;{ status: string, videoId?: string, failReason?: string }&gt;</code></p>
+        </div>
+
+        <h2 id="spotify">Spotify Client</h2>
+        <p>The Spotify client handles track searches, metadata sync, and analytics.</p>
+
+        <h3>Constructor</h3>
+        <pre><code>const spotify = new SpotifyClient({
+  clientId: string,
+  clientSecret: string,
+  accessToken?: string,
+  refreshToken?: string
+});</code></pre>
+
+        <h3>Methods</h3>
+
+        <div class="method">
+            <div class="method-header">
+                <h4>authenticate()</h4>
+            </div>
+            <p>Authenticate with Spotify API using client credentials.</p>
+            <p><strong>Returns:</strong> <code>Promise&lt;string&gt;</code> - Access token</p>
+            <pre><code>const token = await spotify.authenticate();</code></pre>
+        </div>
+
+        <div class="method">
+            <div class="method-header">
+                <h4>getTrack(trackId)</h4>
+            </div>
+            <p>Get track details by ID.</p>
+            <p><strong>Returns:</strong> <code>Promise&lt;SpotifyTrack | null&gt;</code></p>
+        </div>
+
+        <div class="method">
+            <div class="method-header">
+                <h4>searchTracks(query, limit)</h4>
+            </div>
+            <p>Search for tracks on Spotify.</p>
+            <p><strong>Parameters:</strong></p>
+            <table>
+                <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                <tr><td>query</td><td>string</td><td>Search query</td></tr>
+                <tr><td>limit</td><td>number</td><td>Optional: Max results (default: 20)</td></tr>
+            </table>
+            <p><strong>Returns:</strong> <code>Promise&lt;SpotifyTrack[]&gt;</code></p>
+        </div>
+
+        <div class="method">
+            <div class="method-header">
+                <h4>searchByISRC(isrc)</h4>
+            </div>
+            <p>Search for a track by ISRC code.</p>
+            <p><strong>Returns:</strong> <code>Promise&lt;SpotifyTrack | null&gt;</code></p>
+            <pre><code>const track = await spotify.searchByISRC('USXX12345678');</code></pre>
+        </div>
+
+        <div class="method">
+            <div class="method-header">
+                <h4>getTrackAnalytics(trackId)</h4>
+            </div>
+            <p>Get track analytics (requires Spotify for Artists access).</p>
+            <p><strong>Returns:</strong> <code>Promise&lt;SpotifyAnalytics | null&gt;</code></p>
+        </div>
+
+        <div class="method">
+            <div class="method-header">
+                <h4>syncTrackMetadata(trackData)</h4>
+            </div>
+            <p>Find and sync track metadata on Spotify.</p>
+            <pre><code>const track = await spotify.syncTrackMetadata({
+  title: 'My Song',
+  artist: 'My Artist',
+  album: 'My Album',
+  isrc: 'USXX12345678'
+});</code></pre>
+        </div>
+
+        <h2 id="vydia">Vydia Client</h2>
+        <p>The Vydia client manages multi-platform distribution, asset management, and analytics.</p>
+
+        <h3>Constructor</h3>
+        <pre><code>const vydia = new VydiaClient({
+  apiKey: string,
+  baseUrl?: string
+});</code></pre>
+
+        <h3>Methods</h3>
+
+        <div class="method">
+            <div class="method-header">
+                <h4>createAsset(data)</h4>
+            </div>
+            <p>Create a new asset on Vydia.</p>
+            <p><strong>Parameters:</strong></p>
+            <table>
+                <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                <tr><td>data.title</td><td>string</td><td>Asset title</td></tr>
+                <tr><td>data.artist</td><td>string</td><td>Artist name</td></tr>
+                <tr><td>data.metadata</td><td>object</td><td>Additional metadata</td></tr>
+            </table>
+        </div>
+
+        <div class="method">
+            <div class="method-header">
+                <h4>getAsset(assetId)</h4>
+            </div>
+            <p>Get asset details.</p>
+        </div>
+
+        <div class="method">
+            <div class="method-header">
+                <h4>getAnalytics(assetId)</h4>
+            </div>
+            <p>Get analytics for an asset.</p>
+        </div>
+
+        <h2 id="examples">Complete Examples</h2>
+
+        <h3>Example 1: Upload to All Platforms</h3>
+        <pre><code>import { 
+  YouTubeClient, 
+  TikTokClient, 
+  SpotifyClient, 
+  VydiaClient 
+} from 'scrollsoul-music-sync';
+
+async function distributeTrack() {
+  // Initialize clients
+  const youtube = new YouTubeClient({ 
+    apiKey: process.env.YOUTUBE_API_KEY 
+  });
+  const tiktok = new TikTokClient({ 
+    accessToken: process.env.TIKTOK_ACCESS_TOKEN,
+    clientKey: process.env.TIKTOK_CLIENT_KEY,
+    clientSecret: process.env.TIKTOK_CLIENT_SECRET
+  });
+  const spotify = new SpotifyClient({ 
+    clientId: process.env.SPOTIFY_CLIENT_ID,
+    clientSecret: process.env.SPOTIFY_CLIENT_SECRET
+  });
+
+  // Track metadata
+  const trackData = {
+    title: 'My Awesome Song',
+    artist: 'My Artist Name',
+    album: 'My Album',
+    genre: 'Electronic',
+    isrc: 'USXX12345678'
+  };
+
+  // Upload to YouTube
+  const videoId = await youtube.uploadVideo({
+    file: './video.mp4',
+    metadata: {
+      title: `${trackData.artist} - ${trackData.title}`,
+      description: 'Official Music Video',
+      tags: [trackData.genre, 'music'],
+      categoryId: '10'
+    },
+    privacyStatus: 'public'
+  });
+
+  // Upload to TikTok
+  const publishId = await tiktok.syncTrackToVideo(
+    'https://video-url.mp4',
+    trackData
+  );
+
+  // Sync with Spotify
+  await spotify.authenticate();
+  const track = await spotify.syncTrackMetadata(trackData);
+
+  console.log('Distribution complete!');
+  console.log('YouTube:', videoId);
+  console.log('TikTok:', publishId);
+  console.log('Spotify:', track?.id);
+}
+
+distributeTrack();</code></pre>
+
+        <h3>Example 2: Get Unified Analytics</h3>
+        <pre><code>async function getUnifiedAnalytics(trackId) {
+  const [youtubeStats, tiktokStats, spotifyStats] = await Promise.all([
+    youtube.getVideoAnalytics(trackId),
+    tiktok.getVideoAnalytics(trackId),
+    spotify.getTrackAnalytics(trackId)
+  ]);
+
+  return {
+    totalViews: youtubeStats.views + tiktokStats.views,
+    totalLikes: youtubeStats.likes + tiktokStats.likes,
+    spotifyStreams: spotifyStats.streams,
+    totalEngagement: youtubeStats.likes + tiktokStats.likes + 
+                     tiktokStats.shares + spotifyStats.saves
+  };
+}
+
+const analytics = await getUnifiedAnalytics('TRACK_ID');
+console.log('Total Views:', analytics.totalViews);
+console.log('Total Engagement:', analytics.totalEngagement);</code></pre>
+
+        <div class="note">
+            <strong>Note:</strong> All API methods return Promises and should be used with async/await or .then().catch().
+        </div>
+
+        <h2>Error Handling</h2>
+        <p>All methods may throw errors. Always wrap API calls in try-catch blocks:</p>
+        <pre><code>try {
+  const video = await youtube.uploadVideo(options);
+  console.log('Success:', video);
+} catch (error) {
+  console.error('Upload failed:', error.message);
+  // Handle error appropriately
+}</code></pre>
+
+        <h2>Rate Limiting</h2>
+        <p>Each platform has different rate limits:</p>
+        <ul>
+            <li><strong>YouTube:</strong> 10,000 quota units per day</li>
+            <li><strong>TikTok:</strong> Varies by endpoint</li>
+            <li><strong>Spotify:</strong> 30 requests per second</li>
+            <li><strong>Vydia:</strong> Contact Vydia for limits</li>
+        </ul>
+
+        <h2>Need Help?</h2>
+        <ul>
+            <li><a href="getting-started.html">Getting Started Guide</a></li>
+            <li><a href="https://github.com/chaishillomnitech1/scrollsoul-music-sync">GitHub Repository</a></li>
+            <li><a href="../blog/technical-tutorial-template.md">Complete Tutorial</a></li>
+        </ul>
+    </div>
+</body>
+</html>

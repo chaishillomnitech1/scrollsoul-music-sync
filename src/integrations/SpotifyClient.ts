@@ -87,6 +87,10 @@ export class SpotifyClient {
       this.accessToken = response.data.access_token;
       this.client.defaults.headers.Authorization = `Bearer ${this.accessToken}`;
       
+      if (!this.accessToken) {
+        throw new Error('Failed to obtain access token');
+      }
+      
       return this.accessToken;
     } catch (error) {
       console.error('Error authenticating with Spotify:', error);
