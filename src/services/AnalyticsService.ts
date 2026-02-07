@@ -1,5 +1,5 @@
 import { CampaignAnalytics } from '../models/CampaignAnalytics';
-import { CampaignAnalytics as ICampaignAnalytics, SortByMetric } from '../types';
+import { CampaignAnalytics as ICampaignAnalytics, SortByMetric, BrandAnalyticsStats } from '../types';
 
 /**
  * AnalyticsService handles campaign analytics
@@ -159,18 +159,8 @@ export class AnalyticsService {
   /**
    * Get brand performance comparison
    */
-  getBrandComparison(): Map<string, {
-    campaigns: number;
-    revenue: number;
-    reach: number;
-    impressions: number;
-  }> {
-    const comparison = new Map<string, {
-      campaigns: number;
-      revenue: number;
-      reach: number;
-      impressions: number;
-    }>();
+  getBrandComparison(): Map<string, BrandAnalyticsStats> {
+    const comparison = new Map<string, BrandAnalyticsStats>();
 
     Array.from(this.analytics.values()).forEach((analytics) => {
       const current = comparison.get(analytics.brand) || {

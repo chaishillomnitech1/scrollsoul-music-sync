@@ -137,6 +137,25 @@ export interface BrandPerformanceReport {
 }
 
 /**
+ * Brand placement stats interface
+ */
+export interface BrandPlacementStats {
+  count: number;
+  views: number;
+  impressions: number;
+}
+
+/**
+ * Brand analytics stats interface
+ */
+export interface BrandAnalyticsStats {
+  campaigns: number;
+  revenue: number;
+  reach: number;
+  impressions: number;
+}
+
+/**
  * Sort by metric type for analytics
  */
 export type SortByMetric = 'revenue' | 'reach' | 'impressions';

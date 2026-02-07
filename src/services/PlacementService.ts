@@ -1,5 +1,5 @@
 import { Placement } from '../models/Placement';
-import { Placement as IPlacement } from '../types';
+import { Placement as IPlacement, BrandPlacementStats } from '../types';
 
 /**
  * PlacementService handles tracking where music is used
@@ -111,8 +111,8 @@ export class PlacementService {
   /**
    * Get placement stats by brand
    */
-  getStatsByBrand(): Map<string, { count: number; views: number; impressions: number }> {
-    const stats = new Map<string, { count: number; views: number; impressions: number }>();
+  getStatsByBrand(): Map<string, BrandPlacementStats> {
+    const stats = new Map<string, BrandPlacementStats>();
 
     Array.from(this.placements.values()).forEach((placement) => {
       const current = stats.get(placement.brand) || { count: 0, views: 0, impressions: 0 };
