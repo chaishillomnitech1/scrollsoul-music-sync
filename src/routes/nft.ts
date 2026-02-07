@@ -127,12 +127,7 @@ router.get('/sets', (req: Request, res: Response) => {
  */
 router.get('/sets/:id/analytics', (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    
-    if (typeof id !== 'string') {
-      return res.status(400).json({ error: 'Invalid ID' });
-    }
-    
+    const id = req.params.id as string;
     const analytics = storytellingService.getStorytellingAnalytics(id);
 
     res.json({
