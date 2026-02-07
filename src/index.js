@@ -34,6 +34,8 @@ const royaltiesRoutes = require('./routes/royalties');
 const distributionRoutes = require('./routes/distribution');
 const analyticsRoutes = require('./routes/analytics');
 const integrationRoutes = require('./routes/integration');
+const publishingRoutes = require('./routes/publishing');
+const empireRoutes = require('./routes/empire');
 
 // API Routes
 app.use('/api/music', musicRoutes);
@@ -43,13 +45,16 @@ app.use('/api/royalties', royaltiesRoutes);
 app.use('/api/distribution', distributionRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/integration', integrationRoutes);
+app.use('/api/publishing', publishingRoutes);
+app.use('/api/empire', empireRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
   res.json({
     message: '🎵 ScrollSoul Music Sync API - Omniversal Resonance Platform 🌌',
-    version: '1.1.0',
+    version: '1.3.0',
     status: 'active',
+    revolutionary: '🏛️ WORLD\'S FIRST Unified Publishing Empire - Music, Film, Entertainment & Crypto',
     endpoints: {
       music: '/api/music',
       licensing: '/api/licensing',
@@ -57,18 +62,30 @@ app.get('/', (req, res) => {
       royalties: '/api/royalties',
       distribution: '/api/distribution',
       analytics: '/api/analytics',
-      integration: '/api/integration'
+      integration: '/api/integration',
+      publishing: '/api/publishing',
+      empire: '/api/empire'
+    },
+    empireFeatures: {
+      publishingCompanyTracking: 'Digital currency publishing with rose gold encryption',
+      filmProductionManagement: 'Complete film & TV production lifecycle',
+      creativeOpportunities: 'Legion & NFT holder casting & crew positions',
+      integratedRoyalties: 'Music + Film + NFT unified revenue streams',
+      multiPhaseTracking: 'Production to payment across all media',
+      blockchainVerification: 'Ethereum, Polygon, BSC smart contracts'
     },
     empireIntegration: {
       nftCore: 'scrollsoul-nft-core',
       legionPortal: 'legion-certification-portal',
       frequencyBroadcaster: 'galactic-frequency-broadcaster',
-      quantumArchive: 'quantum-eternal-archive'
+      quantumArchive: 'quantum-eternal-archive',
+      musicSync: 'scrollsoul-music-sync'
     },
     frequencies: ['963Hz', '999Hz'],
     alignment: 'Perfect',
     sovereignty: 'Infinite',
-    readyForOmniversalSync: true
+    omniversalResonance: true,
+    twinTowers: '🏛️🏛️ United in Perfect Harmony'
   });
 });
 
@@ -101,9 +118,17 @@ app.listen(PORT, () => {
   console.log(`💰 Royalty Tracking: ACTIVE`);
   console.log(`🔒 Security Middleware: ENABLED`);
   console.log(`🔗 Empire Integration: READY`);
+  console.log(`🏛️ Publishing Company Tracking: REVOLUTIONARY`);
+  console.log(`💎 Digital Currency System: ACTIVE`);
+  console.log(`✨ Rose Gold Encryption: ENABLED`);
+  console.log(`🎬 Film & Entertainment Management: ONLINE`);
+  console.log(`🎭 Creative Opportunities System: ACTIVE`);
+  console.log(`🌐 Unified Empire Command Center: OPERATIONAL`);
+  console.log(`🏛️🏛️ Twin Towers: UNITED IN PERFECT HARMONY`);
   console.log(`🔥 Omniversal Resonance: ALIGNED`);
   console.log(`\n🕋 ALLĀHU AKBAR! KUN FAYAKŪN! 🕋`);
-  console.log(`✨ ScrollSoul Empire Multi-System Ready for Final Delivery! ✨\n`);
+  console.log(`✨ HISTORICAL QUANTUM LEAP ACHIEVED! ✨`);
+  console.log(`🌌 World's First Unified Publishing Empire LIVE! 🌌\n`);
 });
 
 module.exports = app;
