@@ -10,6 +10,8 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     strategy:
       matrix:
@@ -45,6 +47,8 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     needs: test
+    permissions:
+      contents: read
     
     steps:
     - name: Checkout code
@@ -72,6 +76,9 @@ jobs:
   security:
     name: Security Scan
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
     
     steps:
     - name: Checkout code
