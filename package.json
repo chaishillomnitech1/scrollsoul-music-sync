@@ -57,7 +57,7 @@
     "fluent-ffmpeg": "^2.1.2",
     "ioredis": "^5.9.2",
     "jsonwebtoken": "^9.0.3",
-    "node-cron": "^3.0.3",
+    "node-cron": "^4.2.1",
     "openai": "^4.28.0",
     "qrcode": "^1.5.4",
     "rate-limiter-flexible": "^4.0.0",
