@@ -39,6 +39,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Serve documentation static files
+app.use('/docs', express.static('docs'));
+
 // Import routes
 const musicRoutes = require('./routes/music');
 const licensingRoutes = require('./routes/licensing');
@@ -77,7 +80,8 @@ app.get('/', (req, res) => {
       analytics: '/api/analytics',
       integration: '/api/integration',
       publishing: '/api/publishing',
-      empire: '/api/empire'
+      empire: '/api/empire',
+      docs: '/docs'
     },
     empireFeatures: {
       publishingCompanyTracking: 'Digital currency publishing with rose gold encryption',
