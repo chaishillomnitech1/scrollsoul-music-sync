@@ -1,0 +1,108 @@
+name: "🐛 Bug Report"
+description: Report a bug or unexpected behavior in ScrollSoul Music Sync
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+assignees: ["chaishillomnitech1"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🐛 Bug Report
+        
+        Thank you for helping make ScrollSoul better! Please fill out this form as completely as possible.
+        
+        > ⚠️ For **security vulnerabilities**, please use [Private Vulnerability Reporting](https://github.com/chaishillomnitech1/scrollsoul-music-sync/security/advisories/new) instead.
+
+  - type: checkboxes
+    id: existing-issues
+    attributes:
+      label: ✅ Pre-flight Checklist
+      description: Please confirm you have completed these steps before submitting
+      options:
+        - label: I searched existing [Issues](https://github.com/chaishillomnitech1/scrollsoul-music-sync/issues) and [Discussions](https://github.com/chaishillomnitech1/scrollsoul-music-sync/discussions) and this is not a duplicate
+          required: true
+        - label: I am using the latest version of ScrollSoul Music Sync
+          required: true
+        - label: I have read the [CONTRIBUTING.md](https://github.com/chaishillomnitech1/scrollsoul-music-sync/blob/main/CONTRIBUTING.md)
+          required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 🔍 Bug Description
+      description: A clear and concise description of what the bug is
+      placeholder: "Describe the bug in detail..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 🔄 Steps to Reproduce
+      description: Exact steps to reproduce the behavior
+      placeholder: |
+        1. Call endpoint `POST /api/v1/licenses`
+        2. With body `{ ... }`
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: ✅ Expected Behavior
+      description: What you expected to happen
+      placeholder: "The API should return 201 Created with..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: ❌ Actual Behavior
+      description: What actually happened (include error messages and stack traces)
+      placeholder: "The API returned 500 Internal Server Error with..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: node-version
+    attributes:
+      label: 📦 Node.js Version
+      options:
+        - "14.x"
+        - "16.x"
+        - "18.x"
+        - "20.x"
+        - "Other (specify in additional context)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: 💻 Operating System
+      options:
+        - "macOS"
+        - "Ubuntu / Debian"
+        - "Windows"
+        - "Other Linux"
+        - "Docker"
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 📋 Relevant Logs
+      description: Paste any relevant log output here (will be formatted as code)
+      render: shell
+      placeholder: "Paste logs here..."
+
+  - type: textarea
+    id: context
+    attributes:
+      label: 📎 Additional Context
+      description: Any other relevant information — screenshots, links, configuration files
+      placeholder: "Add any other context about the problem here..."

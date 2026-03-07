@@ -1173,23 +1173,33 @@ Global accessibility<br/>
 
 We welcome contributions from developers, musicians, and frequency healers worldwide!
 
-[![Contributors](https://img.shields.io/badge/Contributors-Welcome-brightgreen?style=for-the-badge)](#)
-[![Pull Requests](https://img.shields.io/badge/PRs-Welcome-blue?style=for-the-badge)](#)
-[![Issues](https://img.shields.io/badge/Issues-Open-orange?style=for-the-badge)](#)
+[![Contributors](https://img.shields.io/github/contributors/chaishillomnitech1/scrollsoul-music-sync?style=for-the-badge&color=brightgreen)](https://github.com/chaishillomnitech1/scrollsoul-music-sync/graphs/contributors)
+[![Pull Requests](https://img.shields.io/badge/PRs-Welcome-blue?style=for-the-badge)](https://github.com/chaishillomnitech1/scrollsoul-music-sync/pulls)
+[![Issues](https://img.shields.io/github/issues/chaishillomnitech1/scrollsoul-music-sync?style=for-the-badge&color=orange)](https://github.com/chaishillomnitech1/scrollsoul-music-sync/issues)
+[![Discussions](https://img.shields.io/github/discussions/chaishillomnitech1/scrollsoul-music-sync?style=for-the-badge&color=purple)](https://github.com/chaishillomnitech1/scrollsoul-music-sync/discussions)
+[![Last Commit](https://img.shields.io/github/last-commit/chaishillomnitech1/scrollsoul-music-sync?style=for-the-badge)](https://github.com/chaishillomnitech1/scrollsoul-music-sync/commits/main)
+
+### 🌍 Read the Contributing Guide in Your Language
+
+| 🇺🇸 English | 🇪🇸 Español | 🇫🇷 Français | 🇩🇪 Deutsch | 🇯🇵 日本語 | 🇰🇷 한국어 | 🇨🇳 中文 | 🇧🇷 Português |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| [CONTRIBUTING.md](CONTRIBUTING.md) | [Español](docs/translations/CONTRIBUTING.es.md) | [Français](docs/translations/CONTRIBUTING.fr.md) | [Deutsch](docs/translations/CONTRIBUTING.de.md) | [日本語](docs/translations/CONTRIBUTING.ja.md) | [한국어](docs/translations/CONTRIBUTING.ko.md) | [中文](docs/translations/CONTRIBUTING.zh.md) | [Português](docs/translations/CONTRIBUTING.pt.md) |
 
 ### 🎁 Ways to Contribute
 
-- 🐛 **Report Bugs** - Help us improve
-- 💡 **Suggest Features** - Share your vision
-- 📝 **Improve Docs** - Make it clearer
+- 🐛 **[Report Bugs](https://github.com/chaishillomnitech1/scrollsoul-music-sync/issues/new?template=bug_report.yml)** - Help us improve
+- 💡 **[Suggest Features](https://github.com/chaishillomnitech1/scrollsoul-music-sync/issues/new?template=feature_request.yml)** - Share your vision
+- 📝 **[Improve Docs](https://github.com/chaishillomnitech1/scrollsoul-music-sync/blob/main/CONTRIBUTING.md#-how-to-contribute)** - Make it clearer
 - 🎨 **Design UI/UX** - Enhance the experience
 - 🧪 **Write Tests** - Ensure quality
-- 🌍 **Translate** - Reach more people
-- 🎵 **Add Music** - Share your frequencies
+- 🌍 **[Translate](docs/translations/)** - Reach more people
+- 💬 **[Join Discussions](https://github.com/chaishillomnitech1/scrollsoul-music-sync/discussions)** - Connect with the community
 
 ### 🏆 Hall of Fame
 
 Special thanks to all contributors who help manifest this vision into reality!
+
+[![Contributors Graph](https://contrib.rocks/image?repo=chaishillomnitech1/scrollsoul-music-sync)](https://github.com/chaishillomnitech1/scrollsoul-music-sync/graphs/contributors)
 
 </div>
 
@@ -1928,7 +1938,11 @@ CMD ["npm", "start"]
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please read our [**Contributing Guide**](CONTRIBUTING.md) for details on how to get started. Available in [🇪🇸 Español](docs/translations/CONTRIBUTING.es.md), [🇫🇷 Français](docs/translations/CONTRIBUTING.fr.md), [🇩🇪 Deutsch](docs/translations/CONTRIBUTING.de.md), [🇯🇵 日本語](docs/translations/CONTRIBUTING.ja.md), [🇰🇷 한국어](docs/translations/CONTRIBUTING.ko.md), [🇨🇳 中文](docs/translations/CONTRIBUTING.zh.md), [🇧🇷 Português](docs/translations/CONTRIBUTING.pt.md).
+
+- 🐛 [Report a Bug](https://github.com/chaishillomnitech1/scrollsoul-music-sync/issues/new?template=bug_report.yml)
+- ✨ [Request a Feature](https://github.com/chaishillomnitech1/scrollsoul-music-sync/issues/new?template=feature_request.yml)
+- 💬 [Join Discussions](https://github.com/chaishillomnitech1/scrollsoul-music-sync/discussions)
 
 ---
 

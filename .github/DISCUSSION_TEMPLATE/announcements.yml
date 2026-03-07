@@ -1,0 +1,9 @@
+title: "[Announcement]: "
+labels: ["announcement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📢 Announcement
+        
+        Official announcements from the ScrollSoul team about releases, events, and platform updates.

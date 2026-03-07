@@ -1,0 +1,44 @@
+title: "[Q&A]: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ❓ Ask a Question
+        
+        Have a question about using ScrollSoul? We're here to help! 🌟
+
+  - type: textarea
+    id: question
+    attributes:
+      label: ❓ Your Question
+      description: What do you want to know?
+      placeholder: "How do I configure territory-based royalty calculations?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: 📎 Context
+      description: What have you already tried? Include code snippets or error messages if relevant
+      placeholder: "I've tried calling the endpoint with... but..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: 🗂️ Topic Area
+      options:
+        - "Getting Started / Setup"
+        - "API Usage"
+        - "Authentication"
+        - "Licensing System"
+        - "Royalty Management"
+        - "NFT Integration"
+        - "Deployment / DevOps"
+        - "Performance"
+        - "Other"
+    validations:
+      required: true
