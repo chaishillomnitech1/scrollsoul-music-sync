@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Start a Discussion
+    url: https://github.com/chaishillomnitech1/scrollsoul-music-sync/discussions/new/choose
+    about: For questions, ideas, and general community conversation — use GitHub Discussions
+  - name: 🔐 Report a Security Vulnerability
+    url: https://github.com/chaishillomnitech1/scrollsoul-music-sync/security/advisories/new
+    about: Privately report a security vulnerability
+  - name: 📖 Read the Docs
+    url: https://chaishillomnitech1.github.io/scrollsoul-music-sync/
+    about: Visit our GitHub Pages documentation site
+  - name: 🗺️ View the Roadmap
+    url: https://github.com/chaishillomnitech1/scrollsoul-music-sync/projects
+    about: See what features are planned for upcoming releases

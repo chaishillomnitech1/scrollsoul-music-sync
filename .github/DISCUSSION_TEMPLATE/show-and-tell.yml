@@ -1,0 +1,35 @@
+title: "[Show and Tell]: "
+labels: ["show-and-tell"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🎉 Show and Tell
+        
+        Built something amazing with ScrollSoul? Share it with the community! We'd love to feature your work. 🌟
+
+  - type: textarea
+    id: project
+    attributes:
+      label: 🚀 What Did You Build?
+      description: Describe what you made and how you used ScrollSoul
+      placeholder: "I built a music licensing dashboard that uses the ScrollSoul API to..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: links
+    attributes:
+      label: 🔗 Links
+      description: Repository, live demo, screenshots, or video
+      placeholder: |
+        - Repo: https://github.com/...
+        - Live demo: https://...
+        - Screenshot: (attach below)
+
+  - type: textarea
+    id: learnings
+    attributes:
+      label: 💡 Key Learnings
+      description: What did you learn that might help others?
+      placeholder: "One thing I found really useful was..."

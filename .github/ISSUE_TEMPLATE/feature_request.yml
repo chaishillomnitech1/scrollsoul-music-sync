@@ -1,0 +1,93 @@
+name: "✨ Feature Request"
+description: Suggest a new feature or improvement for ScrollSoul Music Sync
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+assignees: ["chaishillomnitech1"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ✨ Feature Request
+        
+        Thank you for helping shape the ScrollSoul Empire! Your ideas fuel our innovation. 🌟
+        
+        > 💡 For large or complex features, please start a [Discussion](https://github.com/chaishillomnitech1/scrollsoul-music-sync/discussions/categories/ideas) first to gather feedback.
+
+  - type: checkboxes
+    id: existing-requests
+    attributes:
+      label: ✅ Pre-flight Checklist
+      description: Please confirm you have completed these steps
+      options:
+        - label: I searched existing [Issues](https://github.com/chaishillomnitech1/scrollsoul-music-sync/issues?q=label%3Aenhancement) and this is not a duplicate
+          required: true
+        - label: I checked the [project roadmap](https://github.com/chaishillomnitech1/scrollsoul-music-sync/projects) and this is not already planned
+          required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 🎯 Problem Statement
+      description: What problem does this feature solve? What is the current pain point?
+      placeholder: "As a music licensor, I'm frustrated when I try to... because..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: 💡 Proposed Solution
+      description: Describe the solution you'd like to see
+      placeholder: "I would like a new endpoint that allows..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 🔄 Alternatives Considered
+      description: What alternative solutions or workarounds have you considered?
+      placeholder: "I tried using... but it doesn't work because..."
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: 🗂️ Feature Area
+      description: Which area of the platform does this relate to?
+      options:
+        - "🎵 Music Management API"
+        - "📜 Licensing System"
+        - "🎬 Placement Tracking"
+        - "💰 Royalty Management"
+        - "🎨 NFT Integration"
+        - "🫡 Legion Certification"
+        - "📡 Frequency Sync"
+        - "🔐 Authentication & Security"
+        - "🚀 CI/CD & DevOps"
+        - "📖 Documentation"
+        - "🌍 Internationalization"
+        - "🏢 Enterprise Features"
+        - "Other"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 🚦 Priority
+      description: How important is this feature to you?
+      options:
+        - "🔴 Critical — blocking my use case"
+        - "🟡 High — significantly improves my workflow"
+        - "🟢 Medium — nice to have"
+        - "⚪ Low — minor improvement"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: 📎 Additional Context
+      description: Mockups, examples from other platforms, relevant links
+      placeholder: "Here's an example of how Spotify handles this..."

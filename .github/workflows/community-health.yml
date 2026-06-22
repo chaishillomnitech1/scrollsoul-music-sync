@@ -1,0 +1,144 @@
+name: 🌟 Community Health & Engagement
+
+on:
+  schedule:
+    # Run every Monday at 9:00 UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (no labels or comments applied)'
+        required: false
+        default: 'false'
+        type: boolean
+
+jobs:
+  stale-issues:
+    name: 🏷️ Manage Stale Issues & PRs
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Mark stale issues and PRs
+        uses: actions/stale@v9
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          stale-issue-message: |
+            👋 This issue has been automatically marked as **stale** because it has not had any activity in the last **60 days**.
+
+            It will be closed in **14 days** if no further activity occurs. 
+
+            If this issue is still relevant:
+            - 💬 Leave a comment with any updates
+            - 🏷️ Add the `keep-open` label to prevent closure
+            - 🔗 Link any related PRs or discussions
+
+            Thank you for contributing to the ScrollSoul Empire! 🌌
+          stale-pr-message: |
+            👋 This pull request has been automatically marked as **stale** because it has not had any activity in the last **30 days**.
+
+            It will be closed in **14 days** if no further activity occurs.
+
+            If this PR is still being worked on:
+            - 💬 Leave a comment with a status update
+            - 🏷️ Add the `keep-open` label to prevent closure
+            - 🔄 Rebase on latest `main` to show it's still active
+
+            Thank you for your contribution! 🌟
+          close-issue-message: |
+            🔒 This issue has been **automatically closed** due to inactivity.
+
+            It can be reopened at any time if the issue is still relevant. Please reference this issue number when reopening.
+          close-pr-message: |
+            🔒 This pull request has been **automatically closed** due to inactivity.
+
+            The changes can still be submitted as a new PR. Please reference this PR when resubmitting.
+          days-before-stale: 60
+          days-before-close: 14
+          days-before-pr-stale: 30
+          days-before-pr-close: 14
+          stale-issue-label: 'stale'
+          stale-pr-label: 'stale'
+          exempt-issue-labels: 'keep-open,pinned,security,bug,in-progress'
+          exempt-pr-labels: 'keep-open,pinned,security,in-progress,blocked'
+          exempt-all-milestones: true
+
+  welcome-contributors:
+    name: 👋 Welcome New Contributors
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Welcome first-time contributors
+        uses: actions/first-interaction@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-message: |
+            ## 👋 Welcome to the ScrollSoul Empire!
+
+            Thank you for opening your first issue! 🌟
+
+            Here's how to get the most out of this community:
+
+            - 📖 Read our [Contributing Guide](https://github.com/chaishillomnitech1/scrollsoul-music-sync/blob/main/CONTRIBUTING.md) for contribution guidelines
+            - 💬 Join [GitHub Discussions](https://github.com/chaishillomnitech1/scrollsoul-music-sync/discussions) for community conversation
+            - 🌐 Visit our [GitHub Pages](https://chaishillomnitech1.github.io/scrollsoul-music-sync/) for documentation
+            - 📡 Explore the [API Documentation](https://github.com/chaishillomnitech1/scrollsoul-music-sync/blob/main/API.md)
+
+            A maintainer will review this soon. Thank you for helping make ScrollSoul better! 💜
+          pr-message: |
+            ## 🎉 Thank You for Your First Pull Request!
+
+            Welcome to the ScrollSoul contributor community! 🌟
+
+            Your PR has been received and will be reviewed by a maintainer. While you wait:
+
+            - ✅ Make sure all CI checks pass
+            - 📋 Review the [PR checklist](https://github.com/chaishillomnitech1/scrollsoul-music-sync/blob/main/.github/PULL_REQUEST_TEMPLATE.md)
+            - 💬 Feel free to ask questions in the PR comments
+
+            You are now part of the ScrollSoul Empire. Every contribution matters! 💜 🌌
+
+  community-metrics:
+    name: 📊 Community Metrics Report
+    runs-on: ubuntu-latest
+    permissions:
+      issues: read
+      pull-requests: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate community health report
+        run: |
+          echo "## 📊 ScrollSoul Community Health Report"
+          echo "Generated: $(date -u '+%Y-%m-%d %H:%M UTC')"
+          echo ""
+          echo "### Repository Stats"
+          echo "- 🌟 Stars: Check GitHub Insights"
+          echo "- 🍴 Forks: Check GitHub Insights"
+          echo "- 👁️ Watchers: Check GitHub Insights"
+          echo ""
+          echo "### Files Status"
+          echo "- CONTRIBUTING.md: $(test -f CONTRIBUTING.md && echo '✅ Present' || echo '❌ Missing')"
+          echo "- README.md: $(test -f README.md && echo '✅ Present' || echo '❌ Missing')"
+          echo "- LICENSE: $(test -f LICENSE && echo '✅ Present' || echo '❌ Missing')"
+          echo "- SECURITY.md: $(test -f SECURITY.md && echo '✅ Present' || echo '❌ Missing')"
+          echo "- CODE_OF_CONDUCT.md: $(test -f CODE_OF_CONDUCT.md && echo '✅ Present' || echo '❌ Missing')"
+          echo "- .github/PULL_REQUEST_TEMPLATE.md: $(test -f .github/PULL_REQUEST_TEMPLATE.md && echo '✅ Present' || echo '❌ Missing')"
+          echo ""
+          echo "### Issue Templates"
+          ls .github/ISSUE_TEMPLATE/ 2>/dev/null | while read f; do echo "  - ✅ $f"; done || echo "  ❌ No templates found"
+          echo ""
+          echo "### Discussion Templates"
+          ls .github/DISCUSSION_TEMPLATE/ 2>/dev/null | while read f; do echo "  - ✅ $f"; done || echo "  ❌ No templates found"
+          echo ""
+          echo "### Translations Available"
+          ls docs/translations/ 2>/dev/null | while read f; do echo "  - 🌍 $f"; done || echo "  ❌ No translations found"
+          echo ""
+          echo "✅ Community health check complete!"
