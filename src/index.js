@@ -1,6 +1,3 @@
-const express = require('express');
-const cors = require('cors');
-const dotenv = require('dotenv');
 /**
  * ScrollSoul Music Sync Platform
  * Main application entry point
@@ -9,9 +6,7 @@ const dotenv = require('dotenv');
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const placementRoutes = require('./routes/placements');
 const licenseRoutes = require('./routes/licenses');
-const royaltyRoutes = require('./routes/royalties');
 const platformRoutes = require('./routes/platforms');
 
 // Load environment variables
@@ -105,10 +100,8 @@ app.get('/', (req, res) => {
     twinTowers: '🏛️🏛️ United in Perfect Harmony'
   });
 });
-// Routes
-app.use('/api/placements', placementRoutes);
+// Additional routes
 app.use('/api/licenses', licenseRoutes);
-app.use('/api/royalties', royaltyRoutes);
 app.use('/api/platforms', platformRoutes);
 
 // Health check endpoint
@@ -120,41 +113,16 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Error handling middleware
-app.use(errorHandler);
-
 // 404 handler
 app.use((req, res) => {
   res.status(404).json({
     error: 'Not Found',
     message: 'The requested endpoint does not exist'
-    status: 'ACTIVE',
-    platform: 'ScrollSoul Music Sync',
-    timestamp: new Date().toISOString(),
-    services: {
-      placements: 'operational',
-      licenses: 'operational',
-      royalties: 'operational',
-      platforms: 'connected'
-    }
   });
 });
 
-// Root endpoint
-app.get('/', (req, res) => {
-  res.json({
-    name: 'ScrollSoul Music Sync Platform',
-    version: '1.0.0',
-    description: 'Music placement, licensing, and royalty tracking system',
-    endpoints: {
-      health: '/health',
-      placements: '/api/placements',
-      licenses: '/api/licenses',
-      royalties: '/api/royalties',
-      platforms: '/api/platforms'
-    }
-  });
-});
+// Error handling middleware (must be last)
+app.use(errorHandler);
 
 // Start server
 app.listen(PORT, () => {
